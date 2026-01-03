@@ -1,3 +1,6 @@
+'use client';
+
+import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -39,6 +42,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import type { Trip } from '@/lib/types';
 
 const quickActions = [
   {
@@ -63,10 +67,14 @@ const quickActions = [
   },
 ];
 
-const popularDestinations = [
+const initialPopularDestinations = [
   {
     city: 'Tokyo, Japan',
-    image: PlaceHolderImages.find((img) => img.id === 'trip-4'), // Using existing placeholder
+    image: {
+      imageUrl: 'https://picsum.photos/seed/tokyo/600/400',
+      imageHint: 'tokyo japan',
+      description: 'Tokyo',
+    },
     budget: '1500',
   },
   {
@@ -99,7 +107,32 @@ const popularDestinations = [
 ];
 
 export default function HomePage() {
-  const recentTrips = sampleTrips.slice(0, 3);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [filteredTrips, setFilteredTrips] = React.useState<Trip[]>(sampleTrips.slice(0, 3));
+  const [filteredDestinations, setFilteredDestinations] = React.useState(initialPopularDestinations);
+  
+  React.useEffect(() => {
+    const lowercasedQuery = searchQuery.toLowerCase();
+
+    // Filter recent trips
+    const filteredRecentTrips = sampleTrips
+      .filter((trip) =>
+        trip.tripName.toLowerCase().includes(lowercasedQuery) ||
+        trip.stops.some(stop => stop.city.toLowerCase().includes(lowercasedQuery))
+      )
+      .slice(0, 3);
+    setFilteredTrips(filteredRecentTrips);
+
+    // Filter popular destinations
+    const filteredPopularDestinations = initialPopularDestinations.filter(
+      (destination) =>
+        destination.city.toLowerCase().includes(lowercasedQuery)
+    );
+    setFilteredDestinations(filteredPopularDestinations);
+
+  }, [searchQuery]);
+
+
   return (
     <div className="flex flex-col gap-8 md:gap-12">
       <HeroBanner />
@@ -111,6 +144,8 @@ export default function HomePage() {
             <Input
               placeholder="Search destinations, trips..."
               className="pl-10 h-11"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <div className="flex items-center gap-4 w-full md:w-auto">
@@ -162,20 +197,21 @@ export default function HomePage() {
             Popular Destinations
           </h2>
           <Button variant="link" asChild>
-            <Link href="#">
+            <Link href="/explore">
               See All <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </div>
+        {filteredDestinations.length > 0 ? (
         <Carousel
           opts={{
             align: 'start',
-            loop: true,
+            loop: filteredDestinations.length > 1,
           }}
           className="w-full"
         >
           <CarouselContent>
-            {popularDestinations.map((dest) => (
+            {filteredDestinations.map((dest) => (
               <CarouselItem
                 key={dest.city}
                 className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
@@ -205,6 +241,11 @@ export default function HomePage() {
           <CarouselPrevious className="hidden sm:flex" />
           <CarouselNext className="hidden sm:flex" />
         </Carousel>
+        ) : (
+          <div className="text-center py-10">
+            <p className="text-muted-foreground">No popular destinations found.</p>
+          </div>
+        )}
       </section>
 
       <section>
@@ -216,9 +257,9 @@ export default function HomePage() {
             </Link>
           </Button>
         </div>
-        {recentTrips.length > 0 ? (
+        {filteredTrips.length > 0 ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {recentTrips.map((trip) => (
+            {filteredTrips.map((trip) => (
               <TripCard key={trip.id} trip={trip} />
             ))}
           </div>
@@ -227,7 +268,7 @@ export default function HomePage() {
             <Map className="h-12 w-12 text-muted-foreground" />
             <h3 className="mt-4 text-xl font-semibold">No Recent Trips</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Your past adventures will appear here.
+              Your past adventures will appear here. No trips found matching your search.
             </p>
           </div>
         )}
