@@ -100,7 +100,10 @@ export function CreateTripForm() {
 
   const handleGetSuggestions = React.useCallback(async () => {
     const destinationIsValid = await trigger('destination');
-    if (!destinationIsValid || !destinationValue) return;
+    if (!destinationIsValid || !destinationValue) {
+        setSuggestions([]);
+        return;
+    };
 
     setIsLoadingSuggestions(true);
     setSuggestionError(null);
@@ -142,15 +145,10 @@ export function CreateTripForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log('New trip created (simulated):', values);
-    // In a real app, you would save this data to a database
-    // and get a new trip ID.
-    // For this demo, we'll add the trip to our static data and navigate.
     toast({
       title: 'Trip Created!',
       description: 'Redirecting to your new itinerary...',
     });
-    // Simulating navigation to a newly created trip's page
-    // We'll navigate to the "European Adventure" trip.
     router.push('/trips/trip-1');
   }
 
@@ -195,15 +193,11 @@ export function CreateTripForm() {
                           placeholder="e.g., Paris, France"
                           className="pl-8"
                           {...field}
-                          onBlur={handleGetSuggestions}
                         />
                       </FormControl>
-                      {isLoadingSuggestions && (
-                         <Loader className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
-                      )}
                     </div>
                      <FormDescription>
-                      Type a destination and click away to get AI suggestions.
+                      Start typing a destination to get AI suggestions.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -346,7 +340,19 @@ export function CreateTripForm() {
               />
             </div>
           </CardContent>
-          <CardFooter className="justify-end">
+          <CardFooter className="justify-between items-center">
+            <Button
+                type="button"
+                variant="secondary"
+                onClick={handleGetSuggestions}
+                disabled={isLoadingSuggestions || !destinationValue}
+              >
+                {isLoadingSuggestions ? (
+                  <><Loader className="mr-2 h-4 w-4 animate-spin" /> Generating Ideas</>
+                ) : (
+                  <><Wand2 className="mr-2 h-4 w-4" /> Get Suggestions</>
+                )}
+              </Button>
             <Button
               type="submit"
               className="w-full sm:w-auto bg-primary hover:bg-primary/90"
@@ -428,7 +434,7 @@ export function CreateTripForm() {
               suggestions.length === 0 && (
                 <div className="text-center py-10 text-muted-foreground">
                   <p>
-                    Enter a destination and click away to get AI-powered ideas.
+                    Enter a destination and click "Get Suggestions" to see AI-powered ideas.
                   </p>
                 </div>
               )}
@@ -438,3 +444,5 @@ export function CreateTripForm() {
     </Form>
   );
 }
+
+    
