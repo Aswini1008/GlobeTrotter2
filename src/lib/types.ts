@@ -12,7 +12,7 @@ export type User = {
 export type Trip = {
   id: string;
   userId: string;
-  tripName: string;
+  tripName:string;
   startDate: Date;
   endDate: Date;
   totalBudget: number;
@@ -29,7 +29,7 @@ export type Stop = {
   startDate: Date;
   endDate: Date;
   order: number;
-  activities: { [date: string]: Activity[] };
+  activities: Activity[];
 };
 
 export type Activity = {

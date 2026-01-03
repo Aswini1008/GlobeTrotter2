@@ -64,17 +64,13 @@ export const sampleTrips: Trip[] = [
         startDate: new Date('2026-02-10'),
         endDate: new Date('2026-02-11'),
         order: 1,
-        activities: {
-          '2026-02-10': [
+        activities: [
             { id: 'act-101', stopId: 'stop-20', title: 'Marina Beach Walk', estimatedCost: 0, duration: '2 hours' },
             { id: 'act-102', stopId: 'stop-20', title: 'Local South Indian Breakfast', estimatedCost: 250, duration: '1 hour' },
             { id: 'act-103', stopId: 'stop-20', title: 'Kapaleeshwarar Temple Visit', estimatedCost: 0, duration: '1.5 hours' },
-          ],
-          '2026-02-11': [
             { id: 'act-104', stopId: 'stop-20', title: 'Mahabalipuram Day Trip', estimatedCost: 1200, duration: 'Full day' },
             { id: 'act-105', stopId: 'stop-20', title: 'Street Food Dinner', estimatedCost: 400, duration: '2 hours' },
-          ],
-        },
+        ],
       },
       {
         id: 'stop-21',
@@ -83,19 +79,13 @@ export const sampleTrips: Trip[] = [
         startDate: new Date('2026-02-12'),
         endDate: new Date('2026-02-14'),
         order: 2,
-        activities: {
-            '2026-02-12': [
-                { id: 'act-201', stopId: 'stop-21', title: 'Travel Day (Chennai → Bengaluru)', estimatedCost: 1800, duration: '6 hours' },
-            ],
-            '2026-02-13': [
-                { id: 'act-202', stopId: 'stop-21', title: 'Lalbagh Botanical Garden', estimatedCost: 300, duration: '3 hours' },
-                { id: 'act-203', stopId: 'stop-21', title: 'Cafe Hopping in Koramangala', estimatedCost: 1200, duration: '4 hours' },
-            ],
-            '2026-02-14': [
-                { id: 'act-204', stopId: 'stop-21', title: 'Coorg Day Trip', estimatedCost: 6500, duration: 'Full day' },
-                { id: 'act-205', stopId: 'stop-21', title: 'Local Dinner at VV Puram', estimatedCost: 700, duration: '2 hours' },
-            ],
-        },
+        activities: [
+            { id: 'act-201', stopId: 'stop-21', title: 'Travel Day (Chennai → Bengaluru)', estimatedCost: 1800, duration: '6 hours' },
+            { id: 'act-202', stopId: 'stop-21', title: 'Lalbagh Botanical Garden', estimatedCost: 300, duration: '3 hours' },
+            { id: 'act-203', stopId: 'stop-21', title: 'Cafe Hopping in Koramangala', estimatedCost: 1200, duration: '4 hours' },
+            { id: 'act-204', stopId: 'stop-21', title: 'Coorg Day Trip', estimatedCost: 6500, duration: 'Full day' },
+            { id: 'act-205', stopId: 'stop-21', title: 'Local Dinner at VV Puram', estimatedCost: 700, duration: '2 hours' },
+        ],
       },
        {
         id: 'stop-22',
@@ -104,15 +94,11 @@ export const sampleTrips: Trip[] = [
         startDate: new Date('2026-02-15'),
         endDate: new Date('2026-02-16'),
         order: 3,
-        activities: {
-            '2026-02-15': [
-                { id: 'act-301', stopId: 'stop-22', title: 'Travel Day (Bengaluru → Hyderabad)', estimatedCost: 1200, duration: '8 hours' },
-            ],
-            '2026-02-16': [
-                { id: 'act-302', stopId: 'stop-22', title: 'Charminar & Old City Tour', estimatedCost: 800, duration: 'Half day' },
-                { id: 'act-303', stopId: 'stop-22', title: 'Biryani Dinner at Paradise', estimatedCost: 600, duration: '2 hours' },
-            ],
-        },
+        activities: [
+            { id: 'act-301', stopId: 'stop-22', title: 'Travel Day (Bengaluru → Hyderabad)', estimatedCost: 1200, duration: '8 hours' },
+            { id: 'act-302', stopId: 'stop-22', title: 'Charminar & Old City Tour', estimatedCost: 800, duration: 'Half day' },
+            { id: 'act-303', stopId: 'stop-22', title: 'Biryani Dinner at Paradise', estimatedCost: 600, duration: '2 hours' },
+        ],
       },
     ],
     imageUrl: 'https://images.unsplash.com/photo-1532375836203-32433b499187?q=80&w=1920',
@@ -128,7 +114,7 @@ export const sampleCommunityPosts: CommunityPost[] = [
         userId: 'user-1',
         createdAt: new Date('2024-10-25'),
         type: 'ITINERARY',
-        trip: sampleTrips.find(t => t.id === 'trip-1')!,
+        trip: sampleTrips[0],
         likes: 132,
         comments: 18,
     },
@@ -161,7 +147,7 @@ export const sampleCommunityPosts: CommunityPost[] = [
         userId: 'user-2',
         createdAt: new Date('2024-12-28'),
         type: 'ITINERARY',
-        trip: sampleTrips.find(t => t.id === 'trip-3')!,
+        trip: sampleTrips[0],
         likes: 76,
         comments: 9,
     },
@@ -196,7 +182,7 @@ export const sampleCommunityPosts: CommunityPost[] = [
         userId: 'user-4',
         createdAt: new Date('2025-02-10'),
         type: 'ITINERARY',
-        trip: sampleTrips.find(t => t.id === 'trip-5')!,
+        trip: sampleTrips[0],
         likes: 155,
         comments: 22,
     },

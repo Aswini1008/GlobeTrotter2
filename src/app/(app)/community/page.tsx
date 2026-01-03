@@ -33,6 +33,8 @@ export default function CommunityPage() {
       const postsWithCreators = sampleCommunityPosts.map((post) => {
         const creator = getUserById(post.userId);
         if (!creator) return null;
+        // Defensive check for itinerary posts
+        if (post.type === 'ITINERARY' && !post.trip) return null;
         return { ...post, creator };
       }).filter((p): p is CommunityPost & { creator: User } => p !== null);
 
