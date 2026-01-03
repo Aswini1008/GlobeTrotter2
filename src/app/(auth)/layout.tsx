@@ -21,6 +21,7 @@ export default function AuthLayout({
                 data-ai-hint={bgImage.imageHint}
                 fill
                 className="object-cover opacity-20"
+                priority
               />
             </div>
           )}

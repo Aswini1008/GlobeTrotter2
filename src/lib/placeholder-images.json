@@ -3,37 +3,43 @@
     {
       "id": "trip-ooty",
       "description": "A beautiful view of the tea estates in Ooty.",
-      "imageUrl": "https://images.unsplash.com/photo-1613436859363-a725a39c4a4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvb3R5fGVufDB8fHx8MTc2ODExNTA1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1613436859363-a725a39c4a4e?q=80&w=1920",
       "imageHint": "ooty tea estate"
     },
     {
       "id": "trip-kerala",
       "description": "A traditional houseboat on the Kerala backwaters.",
-      "imageUrl": "https://images.unsplash.com/photo-1593693397640-053a15c8a419?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxrZXJhbGElMjBiYWNrd2F0ZXJzfGVufDB8fHx8MTc2ODExNTA1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1593693397640-053a15c8a419?q=80&w=1920",
       "imageHint": "kerala backwaters"
     },
     {
       "id": "trip-madurai",
       "description": "The colorful gopuram of the Meenakshi Amman Temple in Madurai.",
-      "imageUrl": "https://images.unsplash.com/photo-1578303512596-a9c044b36c84?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYWR1cmFpJTIwdGVtcGxlfGVufDB8fHx8MTc2ODExNTA1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1578303512596-a9c044b36c84?q=80&w=1920",
       "imageHint": "madurai temple"
     },
     {
       "id": "trip-goa",
       "description": "A beautiful sunset on a beach in Goa.",
-      "imageUrl": "https://images.unsplash.com/photo-1590372728286-95701c385863?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnb2ElMjBiZWFjaHxlbnwwfHx8fDE3NjgxMTUwNTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1590372728286-95701c385863?q=80&w=1920",
       "imageHint": "goa beach"
     },
     {
       "id": "trip-mumbai",
       "description": "The Gateway of India in Mumbai.",
-      "imageUrl": "https://images.unsplash.com/photo-1595658658481-d53d3f998647?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtdW1iYWl8ZW58MHx8fHwxNzY4MDY1NzMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1595658658481-d53d3f998647?q=80&w=1920",
       "imageHint": "mumbai india"
+    },
+    {
+      "id": "trip-rishikesh",
+      "description": "The Laxman Jhula bridge in Rishikesh.",
+      "imageUrl": "https://images.unsplash.com/photo-1597653733687-1b6787d20a7b?q=80&w=1920",
+      "imageHint": "rishikesh bridge"
     },
     {
       "id": "login-bg",
       "description": "A person looking at a world map.",
-      "imageUrl": "https://images.unsplash.com/photo-1504150558240-0b4fd23ab584?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0cmF2ZWwlMjBpbmRpYXxlbnwwfHx8fDE3NjgxMTUxNDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1504150558240-0b4fd23ab584?q=80&w=1920",
       "imageHint": "travel india"
     }
   ]

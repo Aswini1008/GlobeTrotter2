@@ -4,35 +4,46 @@ import * as React from 'react';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
-const videoClips = {
-  mountain: {
-    src: 'https://videos.pexels.com/video-files/4782135/4782135-hd_1920_1080_25fps.mp4',
-    text: 'Breathe in the mountains.',
-  },
-  beach: {
-    src: 'https://videos.pexels.com/video-files/853830/853830-hd_1920_1080_30fps.mp4',
-    text: 'Feel the rhythm of the ocean.',
-  },
-};
+const heroSections = [
+    {
+      id: 'mountains',
+      src: 'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=1920',
+      alt: 'Majestic mountain range at sunrise',
+      hint: 'mountain sunrise',
+      text: 'Breathe in the mountains.',
+    },
+    {
+      id: 'beaches',
+      src: 'https://images.unsplash.com/photo-1507525428034-b723a9ce6890?q=80&w=1920',
+      alt: 'Pristine beach with turquoise water',
+      hint: 'beach turquoise water',
+      text: 'Feel the rhythm of the ocean.',
+    },
+]
 
-const VideoPanel = ({
+const ImagePanel = ({
   src,
+  alt,
+  hint,
   text,
   className,
 }: {
   src: string;
+  alt: string;
+  hint: string;
   text: string;
   className?: string;
 }) => (
   <div className={cn('relative w-full h-full', className)}>
-    <video
-      className="w-full h-full object-cover transition-transform duration-1000 ease-in-out transform scale-110"
-      autoPlay
-      loop
-      muted
-      playsInline
+    <Image
       src={src}
+      alt={alt}
+      data-ai-hint={hint}
+      fill
+      className="object-cover"
+      priority
     />
     <div className="absolute inset-0 bg-black/30" />
     <div className="absolute bottom-6 left-6 text-white text-lg font-light drop-shadow-md">
@@ -45,14 +56,18 @@ export function HeroBanner() {
   return (
     <div className="relative h-[80vh] md:h-[90vh] max-h-[800px] w-full overflow-hidden rounded-2xl shadow-2xl">
       <div className="flex flex-col lg:flex-row w-full h-full">
-        <VideoPanel
-          src={videoClips.mountain.src}
-          text={videoClips.mountain.text}
+        <ImagePanel
+          src={heroSections[0].src}
+          alt={heroSections[0].alt}
+          hint={heroSections[0].hint}
+          text={heroSections[0].text}
           className="lg:w-1/2"
         />
-        <VideoPanel
-          src={videoClips.beach.src}
-          text={videoClips.beach.text}
+        <ImagePanel
+          src={heroSections[1].src}
+          alt={heroSections[1].alt}
+          hint={heroSections[1].hint}
+          text={heroSections[1].text}
           className="lg:w-1/2"
         />
       </div>

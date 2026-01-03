@@ -33,22 +33,7 @@ export default function CommunityPage() {
       const postsWithCreators = sampleCommunityPosts.map((post) => {
         const creator = getUserById(post.userId);
         if (!creator) return null;
-  
-        let fullPost: CommunityPost & { creator: User };
-  
-        if (post.type === 'EXPERIENCE' && post.imageHint && !post.imageUrl) {
-          fullPost = {
-            ...post,
-            creator,
-            imageUrl: `https://picsum.photos/seed/${post.imageHint.replace(/\s+/g, '-')}/800/600`
-          };
-        } else {
-          fullPost = {
-            ...post,
-            creator,
-          };
-        }
-        return fullPost;
+        return { ...post, creator };
       }).filter((p): p is CommunityPost & { creator: User } => p !== null);
 
       setPosts(postsWithCreators);

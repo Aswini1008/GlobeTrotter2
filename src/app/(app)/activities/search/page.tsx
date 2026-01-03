@@ -291,7 +291,7 @@ export default function ActivitySearchPage() {
                 ))
               : filteredActivities.length > 0
               ? filteredActivities.map((activity) => (
-                  <ActivityCard key={activity.id} activity={{...activity, imageUrl: `https://picsum.photos/seed/${activity.imageHint.replace(/\s+/g, '-')}/400/300`}} isAdded={addedActivities.has(activity.id)} onAdd={() => handleAddActivity(activity)} />
+                  <ActivityCard key={activity.id} activity={activity} isAdded={addedActivities.has(activity.id)} onAdd={() => handleAddActivity(activity)} />
                 ))
               : (
                   <div className="text-center py-16 rounded-lg border-2 border-dashed">
