@@ -35,7 +35,7 @@ export default function TripDetailsPage({
             </Button>
           </Link>
           <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0 font-headline">
-            Build Itinerary Screen
+            {trip.tripName}
           </h1>
         </div>
         <div className="flex items-center gap-2">
@@ -47,7 +47,22 @@ export default function TripDetailsPage({
           </Link>
         </div>
       </div>
-      <ItineraryView trip={trip} />
+      <Tabs defaultValue="itinerary" className="flex-grow">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="itinerary">Itinerary</TabsTrigger>
+          <TabsTrigger value="budget">Budget</TabsTrigger>
+          <TabsTrigger value="timeline">Timeline</TabsTrigger>
+        </TabsList>
+        <TabsContent value="itinerary">
+          <ItineraryView trip={trip} />
+        </TabsContent>
+        <TabsContent value="budget">
+          <BudgetView trip={trip} />
+        </TabsContent>
+        <TabsContent value="timeline">
+          <TimelineView trip={trip} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
