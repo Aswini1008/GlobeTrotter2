@@ -150,8 +150,8 @@ export function CreateTripForm() {
       description: 'Redirecting to your new itinerary...',
     });
     // Simulating navigation to a newly created trip's page
-    // We'll navigate to the "Trip to India" we added.
-    router.push('/trips/trip-4');
+    // We'll navigate to the "European Adventure" trip.
+    router.push('/trips/trip-1');
   }
 
   return (
