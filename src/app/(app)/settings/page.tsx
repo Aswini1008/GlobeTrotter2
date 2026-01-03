@@ -16,7 +16,7 @@ import {
   Sun,
   Laptop,
 } from 'lucide-react';
-import { sampleUser, sampleTrips } from '@/lib/placeholder-data';
+import { sampleTrips } from '@/lib/placeholder-data';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -60,6 +60,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { Label } from '@/components/ui/label';
+import { useUser } from '@/context/user-context';
 
 const profileFormSchema = z.object({
   fullName: z.string().min(1, 'Full name is required.'),
@@ -71,14 +72,9 @@ const profileFormSchema = z.object({
 export default function SettingsPage() {
   const { toast } = useToast();
   const { setTheme, theme } = useTheme();
-  const [currentUser, setCurrentUser] = React.useState({
-    fullName: sampleUser.fullName,
-    email: sampleUser.email,
-    photoURL: sampleUser.photoURL,
-  });
-
+  const { user, updateUser } = useUser();
   const [imagePreview, setImagePreview] = React.useState<string | null>(
-    currentUser.photoURL || null
+    user.photoURL || null
   );
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -87,18 +83,32 @@ export default function SettingsPage() {
   React.useEffect(() => {
     setIsClient(true);
   }, []);
+  
+  React.useEffect(() => {
+    setImagePreview(user.photoURL || null);
+  }, [user.photoURL]);
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      fullName: currentUser.fullName,
-      email: currentUser.email,
+      fullName: user.fullName,
+      email: user.email,
       phoneNumber: '+91 98765 43210', // sample data
-      photoURL: currentUser.photoURL,
+      photoURL: user.photoURL,
     },
   });
 
-  const { formState, setValue } = form;
+  const { formState, setValue, reset } = form;
+
+  React.useEffect(() => {
+    reset({
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: '+91 98765 43210',
+        photoURL: user.photoURL
+    });
+  }, [user, reset]);
+
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -107,7 +117,7 @@ export default function SettingsPage() {
       reader.onloadend = () => {
         const dataUrl = reader.result as string;
         setImagePreview(dataUrl);
-        setValue('photoURL', dataUrl);
+        setValue('photoURL', dataUrl, { shouldDirty: true });
       };
       reader.readAsDataURL(file);
     }
@@ -115,15 +125,16 @@ export default function SettingsPage() {
 
   function onSubmit(values: z.infer<typeof profileFormSchema>) {
     console.log('Form Submitted with values:', values);
-    setCurrentUser({
+    updateUser({
       fullName: values.fullName,
       email: values.email,
-      photoURL: values.photoURL || currentUser.photoURL,
+      photoURL: values.photoURL || user.photoURL,
     });
     toast({
       title: 'Profile Updated',
       description: 'Your information has been successfully saved.',
     });
+    form.reset(values);
   }
 
   const savedDestinations = React.useMemo(() => {
@@ -169,10 +180,10 @@ export default function SettingsPage() {
                   >
                     <AvatarImage
                       src={imagePreview ?? undefined}
-                      alt={`${currentUser.fullName} profile picture`}
+                      alt={`${user.fullName} profile picture`}
                     />
                     <AvatarFallback className="text-3xl">
-                      {currentUser.fullName.charAt(0)}
+                      {user.fullName.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
                   <button
@@ -192,8 +203,8 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold font-headline">{currentUser.fullName}</h2>
-                  <p className="text-muted-foreground">{currentUser.email}</p>
+                  <h2 className="text-2xl font-bold font-headline">{user.fullName}</h2>
+                  <p className="text-muted-foreground">{user.email}</p>
                 </div>
               </div>
 
@@ -250,6 +261,7 @@ export default function SettingsPage() {
             <CardFooter className="border-t px-6 py-4 justify-end gap-2">
               <Button
                 variant="outline"
+                type="button"
                 onClick={() => form.reset()}
                 disabled={!formState.isDirty || formState.isSubmitting}
               >

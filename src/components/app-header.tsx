@@ -26,7 +26,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { GlobeTrotterLogo } from './icons';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { sampleUser } from '@/lib/placeholder-data';
+import { useUser } from '@/context/user-context';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -42,7 +42,8 @@ const navItems = [
 
 export function AppHeader() {
   const pathname = usePathname();
-  const nameInitial = sampleUser.fullName.charAt(0);
+  const { user } = useUser();
+  const nameInitial = user.fullName.charAt(0);
   
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-card px-4 lg:h-[60px] lg:px-6">
@@ -85,7 +86,7 @@ export function AppHeader() {
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="icon" className="rounded-full">
              <Avatar>
-              <AvatarImage src={sampleUser.photoURL} alt={`${sampleUser.fullName}`} />
+              <AvatarImage src={user.photoURL} alt={`${user.fullName}`} />
               <AvatarFallback>{nameInitial}</AvatarFallback>
             </Avatar>
             <span className="sr-only">Toggle user menu</span>

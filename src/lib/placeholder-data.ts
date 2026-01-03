@@ -5,35 +5,35 @@ export const sampleUser: User = {
   id: 'user-1',
   fullName: 'Aswini S M',
   email: 'aswini.sm@example.com',
-  photoURL: 'https://i.pravatar.cc/150?u=aswini',
+  photoURL: '/avatars/aswini.png',
 };
 
 export const sampleUser2: User = {
   id: 'user-2',
   fullName: 'Rohan Sharma',
   email: 'rohan.sharma@example.com',
-  photoURL: 'https://i.pravatar.cc/150?u=rohan',
+  photoURL: '/avatars/rohan.png',
 };
 
 export const sampleUser3: User = {
   id: 'user-3',
   fullName: 'Virat Kumar',
   email: 'virat.kumar@example.com',
-  photoURL: 'https://i.pravatar.cc/150?u=virat',
+  photoURL: '/avatars/virat.png',
 };
 
 export const sampleUser4: User = {
   id: 'user-4',
   fullName: 'Priya Patel',
   email: 'priya.patel@example.com',
-  photoURL: 'https://i.pravatar.cc/150?u=priya',
+  photoURL: '/avatars/priya.png',
 };
 
 export const sampleUser5: User = {
   id: 'user-5',
   fullName: 'Jeeva Shankar',
   email: 'jeeva.shankar@example.com',
-  photoURL: 'https://i.pravatar.cc/150?u=jeeva',
+  photoURL: '/avatars/jeeva.png',
 };
 
 
