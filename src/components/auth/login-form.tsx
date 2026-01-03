@@ -87,7 +87,7 @@ export function LoginForm() {
           />
           <Button
             type="submit"
-            className="w-full bg-primary hover:bg-primary/90"
+            className="w-full"
             disabled={formState.isSubmitting}
           >
             {formState.isSubmitting ? 'Logging in...' : 'Login'}
@@ -103,5 +103,3 @@ export function LoginForm() {
     </>
   );
 }
-
-    

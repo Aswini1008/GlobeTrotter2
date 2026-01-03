@@ -30,7 +30,7 @@ export function HeroBanner() {
   const [api, setApi] = React.useState<CarouselApi>();
 
   return (
-    <div className="relative h-[50vh] md:h-[60vh] max-h-[600px] w-full overflow-hidden rounded-2xl shadow-2xl">
+    <div className="relative h-[60vh] md:h-[70vh] max-h-[600px] w-full overflow-hidden rounded-2xl shadow-2xl">
       <Carousel
         setApi={setApi}
         className="w-full h-full"
@@ -66,7 +66,7 @@ export function HeroBanner() {
         <p className="mt-4 text-lg md:text-xl max-w-2xl drop-shadow-md">
           Your next journey starts here.
         </p>
-        <div className="mt-8 flex gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row gap-4">
           <Link href="/trips/new">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full shadow-lg transition-transform hover:scale-105">
               Plan a New Trip

@@ -193,7 +193,7 @@ export function CreateTripForm() {
                       <FormControl>
                         <Input
                           placeholder="e.g., Paris, France"
-                          className="pl-8 pr-8"
+                          className="pl-8"
                           {...field}
                           onBlur={handleGetSuggestions}
                         />
