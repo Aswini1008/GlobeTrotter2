@@ -50,7 +50,100 @@ export const getUserById = (id: string): User | undefined => {
 
 const tripImages = PlaceHolderImages.filter((img) => img.id.startsWith('trip'));
 
+const now = new Date();
+
 export const sampleTrips: Trip[] = [
+  // --- Ongoing ---
+  {
+    id: 'trip-2',
+    userId: 'user-2',
+    tripName: 'Goa, India',
+    startDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 2),
+    endDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 3),
+    totalBudget: 25000,
+    isPublic: true,
+    createdAt: new Date('2025-12-01'),
+    stops: [
+      { id: 'stop-2', tripId: 'trip-2', city: 'Goa, India', startDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 2), endDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 3), order: 1, activities: {} },
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1590372728286-95701c385863?q=80&w=1920',
+    description: 'Beach relaxation, water sports, and sunset cruises in vibrant Goa.',
+    imageHint: 'goa beach sunset',
+  },
+  // --- Upcoming ---
+  {
+    id: 'trip-manali',
+    userId: 'user-1',
+    tripName: 'Manali, India',
+    startDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 12),
+    endDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 18),
+    totalBudget: 40000,
+    isPublic: true,
+    createdAt: new Date('2026-01-10'),
+    stops: [],
+    imageUrl: 'https://images.unsplash.com/photo-1616947941235-86f4a47331a9?q=80&w=1920',
+    description: 'Snow adventures, breathtaking mountain views, and cozy stays in Manali.',
+    imageHint: 'manali snow mountain',
+  },
+  {
+    id: 'trip-bali',
+    userId: 'user-1',
+    tripName: 'Bali, Indonesia',
+    startDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 35),
+    endDate: new Date(now.getFullYear(), now.getMonth(), now  .getDate() + 45),
+    totalBudget: 120000,
+    isPublic: true,
+    createdAt: new Date('2026-01-01'),
+    stops: [],
+    imageUrl: 'https://images.unsplash.com/photo-1573790387438-4da905039392?q=80&w=1920',
+    description: 'Island temples, pristine beaches, and deep cultural exploration in Bali.',
+    imageHint: 'bali temple',
+  },
+  // --- Completed ---
+  {
+    id: 'trip-paris',
+    userId: 'user-2',
+    tripName: 'Paris, France',
+    startDate: new Date('2025-08-15'),
+    endDate: new Date('2025-08-21'),
+    totalBudget: 150000,
+    isPublic: true,
+    createdAt: new Date('2025-07-01'),
+    stops: [],
+    imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760c0341?q=80&w=1920',
+    description: 'A romantic journey through the iconic streets and landmarks of Paris.',
+    imageHint: 'paris eiffel tower',
+  },
+  {
+    id: 'trip-rome',
+    userId: 'user-3',
+    tripName: 'Rome, Italy',
+    startDate: new Date('2025-09-01'),
+    endDate: new Date('2025-09-05'),
+    totalBudget: 90000,
+    isPublic: true,
+    createdAt: new Date('2025-07-15'),
+    stops: [],
+    imageUrl: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1920',
+    description: 'Exploring ancient ruins, renaissance art, and the vibrant life of Rome.',
+    imageHint: 'rome colosseum',
+  },
+  // --- Draft ---
+  {
+    id: 'trip-tokyo',
+    userId: 'user-1',
+    tripName: 'Tokyo, Japan (Draft)',
+    startDate: new Date('2026-04-01'),
+    endDate: new Date('2026-04-10'),
+    totalBudget: 200000,
+    isPublic: false,
+    createdAt: new Date('2026-01-20'),
+    stops: [],
+    imageUrl: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=1920',
+    description: 'Planning for cherry blossoms, neon-lit cityscapes, and culinary adventures.',
+    imageHint: 'tokyo city night',
+  },
+  // --- Old data for reference/other pages ---
   {
     id: 'trip-10',
     userId: 'user-1',
@@ -94,7 +187,7 @@ export const sampleTrips: Trip[] = [
             ],
             '2026-02-13': [
                 { id: 'act-202', stopId: 'stop-21', title: 'Lalbagh Botanical Garden', estimatedCost: 300, duration: '3 hours' },
-                { id: 'act-203', stopId: 'stop-21', title: 'Cafe Hopping in Koramangala', estimatedCost: 1200, duration: '4 hours' },
+                { id 'act-203', stopId: 'stop-21', title: 'Cafe Hopping in Koramangala', estimatedCost: 1200, duration: '4 hours' },
             ],
             '2026-02-14': [
                 { id: 'act-204', stopId: 'stop-21', title: 'Coorg Day Trip', estimatedCost: 6500, duration: 'Full day' },
@@ -121,56 +214,8 @@ export const sampleTrips: Trip[] = [
       },
     ],
     imageUrl: 'https://images.unsplash.com/photo-1532375836203-32433b499187?q=80&w=1920',
-    description: 'A collage of iconic Indian landmarks and scenery',
+    description: 'A cultural and culinary journey through the heart of Southern and Central India.',
     imageHint: 'incredible india collage'
-  },
-  {
-    id: 'trip-2',
-    userId: 'user-2',
-    tripName: 'Goa Getaway',
-    startDate: new Date('2026-03-05'),
-    endDate: new Date('2026-03-10'),
-    totalBudget: 20000,
-    isPublic: false,
-    createdAt: new Date('2026-01-15'),
-    stops: [
-      {
-        id: 'stop-2',
-        tripId: 'trip-2',
-        city: 'Goa, India',
-        startDate: new Date('2026-03-05'),
-        endDate: new Date('2026-03-10'),
-        order: 1,
-        activities: {},
-      },
-    ],
-    imageUrl: 'https://images.unsplash.com/photo-1590372728286-95701c385863?q=80&w=1920',
-    description: 'A beautiful beach in Goa with a stunning sunset',
-    imageHint: 'goa beach sunset',
-  },
-  {
-    id: 'trip-1',
-    userId: 'user-1',
-    tripName: 'Ooty Weekend',
-    startDate: new Date('2026-04-12'),
-    endDate: new Date('2026-04-14'),
-    totalBudget: 15000,
-    isPublic: true,
-    createdAt: new Date('2026-02-01'),
-    stops: [
-       {
-        id: 'stop-1',
-        tripId: 'trip-1',
-        city: 'Ooty, Tamil Nadu',
-        startDate: new Date('2026-04-12'),
-        endDate: new Date('2026-04-14'),
-        order: 1,
-        activities: {},
-      },
-    ],
-    imageUrl: 'https://images.unsplash.com/photo-1613436859363-a725a39c4a4e?q=80&w=1920',
-    description: 'A scenic view of the rolling tea gardens in Ooty',
-    imageHint: 'ooty tea gardens',
   },
 ];
 
