@@ -14,6 +14,7 @@ import {
   X,
   Plus,
   Wand2,
+  Loader,
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -45,6 +46,13 @@ import {
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { Textarea } from '../ui/textarea';
+import {
+  getTripSuggestions,
+  TripSuggestion,
+} from '@/ai/flows/trip-suggestions';
+import { Skeleton } from '../ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import { AlertCircle } from 'lucide-react';
 
 const formSchema = z
   .object({
@@ -65,20 +73,16 @@ const formSchema = z
     path: ['dateRange'],
   });
 
-const suggestionCards = [
-    { name: 'Eiffel Tower', image: 'https://picsum.photos/seed/eiffel/400/300' },
-    { name: 'Colosseum', image: 'https://picsum.photos/seed/colosseum/400/300' },
-    { name: 'Great Wall of China', image: 'https://picsum.photos/seed/greatwall/400/300' },
-    { name: 'Machu Picchu', image: 'https://picsum.photos/seed/machu/400/300' },
-    { name: 'Pyramids of Giza', image: 'https://picsum.photos/seed/giza/400/300' },
-    { name: 'Santorini', image: 'https://picsum.photos/seed/santorini/400/300' },
-]
-
 export function CreateTripForm() {
   const router = useRouter();
   const { toast } = useToast();
   const [imagePreview, setImagePreview] = React.useState<string | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const [suggestions, setSuggestions] = React.useState<TripSuggestion[]>([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = React.useState(false);
+  const [suggestionError, setSuggestionError] = React.useState<string | null>(
+    null
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -90,7 +94,29 @@ export function CreateTripForm() {
     },
   });
 
-  const { formState, setValue } = form;
+  const { formState, setValue, getValues, trigger } = form;
+
+  const handleGetSuggestions = async () => {
+    const destinationIsValid = await trigger('destination');
+    if (!destinationIsValid) return;
+
+    setIsLoadingSuggestions(true);
+    setSuggestionError(null);
+    setSuggestions([]);
+
+    try {
+      const destination = getValues('destination');
+      const result = await getTripSuggestions({ destination });
+      setSuggestions(result.suggestions);
+    } catch (error) {
+      console.error('Failed to get suggestions:', error);
+      setSuggestionError(
+        'Sorry, we couldn\'t fetch suggestions at this time. Please try again.'
+      );
+    } finally {
+      setIsLoadingSuggestions(false);
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -108,10 +134,10 @@ export function CreateTripForm() {
   const removeImage = () => {
     setImagePreview(null);
     setValue('coverPhoto', undefined);
-    if(fileInputRef.current) {
-        fileInputRef.current.value = '';
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
-  }
+  };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -158,15 +184,32 @@ export function CreateTripForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Destination</FormLabel>
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <FormControl>
-                        <Input
-                          placeholder="e.g., Paris, France"
-                          className="pl-8"
-                          {...field}
-                        />
-                      </FormControl>
+                    <div className="flex items-center gap-2">
+                      <div className="relative flex-grow">
+                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <FormControl>
+                          <Input
+                            placeholder="e.g., Paris, France"
+                            className="pl-8"
+                            {...field}
+                          />
+                        </FormControl>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleGetSuggestions}
+                        disabled={isLoadingSuggestions}
+                      >
+                        {isLoadingSuggestions ? (
+                          <Loader className="animate-spin" />
+                        ) : (
+                          <Wand2 />
+                        )}
+                        <span className="ml-2 hidden sm:inline">
+                          {isLoadingSuggestions ? 'Generating...' : 'Suggestions'}
+                        </span>
+                      </Button>
                     </div>
                     <FormMessage />
                   </FormItem>
@@ -244,7 +287,7 @@ export function CreateTripForm() {
               />
             </div>
             <div className="space-y-6">
-               <FormField
+              <FormField
                 control={form.control}
                 name="description"
                 render={({ field }) => (
@@ -261,7 +304,7 @@ export function CreateTripForm() {
                   </FormItem>
                 )}
               />
-               <FormField
+              <FormField
                 control={form.control}
                 name="coverPhoto"
                 render={({ field }) => (
@@ -269,28 +312,39 @@ export function CreateTripForm() {
                     <FormLabel>Cover Photo (Optional)</FormLabel>
                     {imagePreview ? (
                       <div className="relative aspect-video w-full rounded-md overflow-hidden">
-                        <Image src={imagePreview} alt="Cover photo preview" fill className="object-cover" />
-                        <Button type="button" size="icon" variant="destructive" className="absolute top-2 right-2 h-7 w-7" onClick={removeImage}>
-                            <X className="h-4 w-4"/>
+                        <Image
+                          src={imagePreview}
+                          alt="Cover photo preview"
+                          fill
+                          className="object-cover"
+                        />
+                        <Button
+                          type="button"
+                          size="icon"
+                          variant="destructive"
+                          className="absolute top-2 right-2 h-7 w-7"
+                          onClick={removeImage}
+                        >
+                          <X className="h-4 w-4" />
                         </Button>
                       </div>
                     ) : (
-                        <FormControl>
-                            <div 
-                                className="w-full aspect-video border-2 border-dashed rounded-md flex flex-col items-center justify-center text-muted-foreground hover:bg-muted/50 cursor-pointer"
-                                onClick={() => fileInputRef.current?.click()}
-                            >
-                                <UploadCloud className="h-8 w-8 mb-2" />
-                                <span>Click to upload image</span>
-                                <Input
-                                    type="file"
-                                    accept="image/*"
-                                    className="hidden"
-                                    ref={fileInputRef}
-                                    onChange={handleImageChange}
-                                />
-                            </div>
-                        </FormControl>
+                      <FormControl>
+                        <div
+                          className="w-full aspect-video border-2 border-dashed rounded-md flex flex-col items-center justify-center text-muted-foreground hover:bg-muted/50 cursor-pointer"
+                          onClick={() => fileInputRef.current?.click()}
+                        >
+                          <UploadCloud className="h-8 w-8 mb-2" />
+                          <span>Click to upload image</span>
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            ref={fileInputRef}
+                            onChange={handleImageChange}
+                          />
+                        </div>
+                      </FormControl>
                     )}
                     <FormMessage />
                   </FormItem>
@@ -308,34 +362,84 @@ export function CreateTripForm() {
             </Button>
           </CardFooter>
         </Card>
-        
+
         <Card className="max-w-4xl mx-auto mt-8">
-            <CardHeader>
-              <CardTitle className="font-headline text-2xl flex items-center gap-2">
-                  <Wand2 className="text-primary h-6 w-6"/>
-                  Smart Suggestions
-              </CardTitle>
-              <CardDescription>
-                  Get inspired with these popular spots for your destination.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+          <CardHeader>
+            <CardTitle className="font-headline text-2xl flex items-center gap-2">
+              <Wand2 className="text-primary h-6 w-6" />
+              Smart Suggestions
+            </CardTitle>
+            <CardDescription>
+              Get inspired with these AI-powered popular spots for your
+              destination.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {isLoadingSuggestions && (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {suggestionCards.map(suggestion => (
-                      <div key={suggestion.name} className="relative group aspect-w-16 aspect-h-9 rounded-md overflow-hidden cursor-pointer">
-                          <Image src={suggestion.image} alt={suggestion.name} fill className="object-cover transform transition-transform duration-300 group-hover:scale-110" />
-                          <div className="absolute inset-0 bg-black/40 flex items-end p-2">
-                              <p className="text-white text-sm font-semibold">{suggestion.name}</p>
-                          </div>
-                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                              <Button size="icon" variant="secondary" className="rounded-full h-9 w-9">
-                                  <Plus className="h-5 w-5" />
-                              </Button>
-                          </div>
-                      </div>
-                  ))}
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="space-y-2">
+                    <Skeleton className="h-24 w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                  </div>
+                ))}
               </div>
-            </CardContent>
+            )}
+            {suggestionError && (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{suggestionError}</AlertDescription>
+              </Alert>
+            )}
+            {!isLoadingSuggestions &&
+              !suggestionError &&
+              suggestions.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {suggestions.map((suggestion, i) => (
+                    <div
+                      key={suggestion.name}
+                      className="relative group aspect-w-16 aspect-h-9 rounded-md overflow-hidden cursor-pointer"
+                    >
+                      <Image
+                        src={`https://picsum.photos/seed/${suggestion.imageHint.replace(
+                          /\s+/g,
+                          '-'
+                        )}-${i}/400/300`}
+                        alt={suggestion.name}
+                        data-ai-hint={suggestion.imageHint}
+                        fill
+                        className="object-cover transform transition-transform duration-300 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black/40 flex items-end p-2">
+                        <p className="text-white text-sm font-semibold">
+                          {suggestion.name}
+                        </p>
+                      </div>
+                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button
+                          size="icon"
+                          variant="secondary"
+                          className="rounded-full h-9 w-9"
+                        >
+                          <Plus className="h-5 w-5" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            {!isLoadingSuggestions &&
+              !suggestionError &&
+              suggestions.length === 0 && (
+                <div className="text-center py-10 text-muted-foreground">
+                  <p>
+                    Enter a destination and click the "Suggestions" button to
+                    get AI-powered ideas.
+                  </p>
+                </div>
+              )}
+          </CardContent>
         </Card>
       </form>
     </Form>
