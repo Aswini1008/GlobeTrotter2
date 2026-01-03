@@ -44,7 +44,7 @@ export function LoginForm() {
       title: 'Login Successful',
       description: 'Redirecting to your dashboard...',
     });
-    router.push('/dashboard');
+    router.push('/home');
   }
 
   return (
@@ -72,7 +72,7 @@ export function LoginForm() {
                 <div className="flex items-center">
                   <FormLabel>Password</FormLabel>
                   <Link
-                    href="#"
+                    href="/forgot-password"
                     className="ml-auto inline-block text-sm underline"
                   >
                     Forgot your password?
