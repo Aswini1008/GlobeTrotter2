@@ -16,7 +16,8 @@ export const sampleDestinations: Destination[] = [
     imageUrls: [
         'https://images.unsplash.com/photo-1613436859363-a725a39c4a4e?q=80&w=1920',
         'https://images.unsplash.com/photo-1599422336399-0a3c7e46497c?q=80&w=1920',
-        'https://images.unsplash.com/photo-1559819239-e475f8a05c75?q=80&w=1920'
+        'https://images.unsplash.com/photo-1559819239-e475f8a05c75?q=80&w=1920',
+        'https://images.unsplash.com/photo-1560026852-2b99d6f2c25a?q=80&w=1920'
     ],
     tags: ['Hill Station', 'Nature', 'Relaxation'],
     bestTime: 'Oct-Jun',
