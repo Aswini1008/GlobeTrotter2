@@ -128,16 +128,16 @@ export default function SettingsPage() {
           </p>
         </div>
       </div>
+      <Form {...form}>
+        {/* Profile Overview */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Profile</CardTitle>
+            <CardDescription>
+              This is your public-facing information.
+            </CardDescription>
+          </CardHeader>
 
-      {/* Profile Overview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">Profile</CardTitle>
-          <CardDescription>
-            This is your public-facing information.
-          </CardDescription>
-        </CardHeader>
-        <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent className="space-y-6">
               <div className="flex items-center gap-6">
@@ -243,87 +243,87 @@ export default function SettingsPage() {
               </Button>
             </CardFooter>
           </form>
-        </Form>
-      </Card>
+        </Card>
 
-      {/* Preferences */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">Preferences</CardTitle>
-          <CardDescription>
-            Customize your app experience.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-4">
-            <FormItem>
-              <FormLabel>Language</FormLabel>
-              <Select defaultValue="en">
-                <SelectTrigger>
-                  <SelectValue placeholder="Select language" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="ta">Tamil</SelectItem>
-                  <SelectItem value="hi">Hindi</SelectItem>
-                  <SelectItem value="es">Spanish</SelectItem>
-                  <SelectItem value="fr">French</SelectItem>
-                </SelectContent>
-              </Select>
-            </FormItem>
-            <FormItem>
-              <FormLabel>Theme</FormLabel>
-                <Select defaultValue="system">
-                <SelectTrigger>
-                  <SelectValue placeholder="Select theme" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">
-                    <div className="flex items-center gap-2">
-                      <Sun /> Light
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="dark">
-                    <div className="flex items-center gap-2">
-                      <Moon /> Dark
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="system">
-                    <div className="flex items-center gap-2">
-                      <Laptop /> System
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </FormItem>
-          </div>
-          <div className="space-y-4">
-             <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                <div className="space-y-0.5">
-                  <FormLabel className="text-base">Trip Reminders</FormLabel>
-                  <p className="text-sm text-muted-foreground">
-                    Get notified about upcoming trips and activities.
-                  </p>
-                </div>
-                <FormControl>
-                  <Switch defaultChecked/>
-                </FormControl>
+        {/* Preferences */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Preferences</CardTitle>
+            <CardDescription>
+              Customize your app experience.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-4">
+              <FormItem>
+                <FormLabel>Language</FormLabel>
+                <Select defaultValue="en">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="en">English</SelectItem>
+                    <SelectItem value="ta">Tamil</SelectItem>
+                    <SelectItem value="hi">Hindi</SelectItem>
+                    <SelectItem value="es">Spanish</SelectItem>
+                    <SelectItem value="fr">French</SelectItem>
+                  </SelectContent>
+                </Select>
               </FormItem>
+              <FormItem>
+                <FormLabel>Theme</FormLabel>
+                  <Select defaultValue="system">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select theme" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="light">
+                      <div className="flex items-center gap-2">
+                        <Sun /> Light
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="dark">
+                      <div className="flex items-center gap-2">
+                        <Moon /> Dark
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="system">
+                      <div className="flex items-center gap-2">
+                        <Laptop /> System
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            </div>
+            <div className="space-y-4">
                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                <div className="space-y-0.5">
-                  <FormLabel className="text-base">Promotional Offers</FormLabel>
-                  <p className="text-sm text-muted-foreground">
-                    Receive emails about special offers and new features.
-                  </p>
-                </div>
-                <FormControl>
-                  <Switch />
-                </FormControl>
-              </FormItem>
-          </div>
-        </CardContent>
-      </Card>
-      
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">Trip Reminders</FormLabel>
+                    <p className="text-sm text-muted-foreground">
+                      Get notified about upcoming trips and activities.
+                    </p>
+                  </div>
+                  <FormControl>
+                    <Switch defaultChecked/>
+                  </FormControl>
+                </FormItem>
+                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">Promotional Offers</FormLabel>
+                    <p className="text-sm text-muted-foreground">
+                      Receive emails about special offers and new features.
+                    </p>
+                  </div>
+                  <FormControl>
+                    <Switch />
+                  </FormControl>
+                </FormItem>
+            </div>
+          </CardContent>
+        </Card>
+      </Form>
+
       {/* Saved Data */}
       <Card>
         <CardHeader>
