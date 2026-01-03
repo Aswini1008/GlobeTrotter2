@@ -44,3 +44,28 @@ export type IntelligentSuggestion = {
   activity: string;
   suggestion: string;
 };
+
+export type CommunityPostType = 'ITINERARY' | 'STORY' | 'TIP' | 'EXPERIENCE';
+
+export interface CommunityPostBase {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  type: CommunityPostType;
+  text?: string;
+  city?: string;
+  country?: string;
+  imageUrl?: string;
+  imageHint?: string;
+}
+
+export interface CommunityItineraryPost extends CommunityPostBase {
+  type: 'ITINERARY';
+  trip: Trip;
+}
+
+export interface CommunityStoryPost extends CommunityPostBase {
+  type: 'STORY' | 'TIP' | 'EXPERIENCE';
+}
+
+export type CommunityPost = CommunityItineraryPost | CommunityStoryPost;

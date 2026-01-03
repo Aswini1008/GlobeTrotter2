@@ -1,4 +1,4 @@
-import type { Trip, User } from './types';
+import type { Trip, User, CommunityPost } from './types';
 import { PlaceHolderImages } from './placeholder-images';
 
 export const sampleUser: User = {
@@ -8,6 +8,20 @@ export const sampleUser: User = {
   email: 'alex.doe@example.com',
   photoURL: 'https://i.pravatar.cc/150?u=alexdoe',
 };
+
+export const sampleUser2: User = {
+  id: 'user-2',
+  firstName: 'Sam',
+  lastName: 'Jones',
+  email: 'sam.jones@example.com',
+  photoURL: 'https://i.pravatar.cc/150?u=samjones',
+};
+
+const allUsers = [sampleUser, sampleUser2];
+
+export const getUserById = (id: string): User | undefined => {
+    return allUsers.find(u => u.id === id);
+}
 
 const tripImages = PlaceHolderImages.filter((img) => img.id.startsWith('trip'));
 
@@ -88,7 +102,7 @@ export const sampleTrips: Trip[] = [
   },
   {
     id: 'trip-3',
-    userId: 'user-1',
+    userId: 'user-2',
     tripName: 'Mountain Expedition',
     startDate: new Date('2024-09-05'),
     endDate: new Date('2024-09-12'),
@@ -148,7 +162,7 @@ export const sampleTrips: Trip[] = [
   },
   {
     id: 'trip-5',
-    userId: 'user-1',
+    userId: 'user-2',
     tripName: 'Weekend in New York',
     startDate: new Date('2024-10-18'),
     endDate: new Date('2024-10-20'),
@@ -199,3 +213,57 @@ export const sampleTrips: Trip[] = [
     description: "A photo of the Australian Outback"
   }
 ];
+
+
+export const sampleCommunityPosts: CommunityPost[] = [
+    {
+        id: 'post-1',
+        userId: 'user-1',
+        createdAt: new Date('2024-08-12'),
+        type: 'ITINERARY',
+        trip: sampleTrips.find(t => t.id === 'trip-1')!
+    },
+    {
+        id: 'post-2',
+        userId: 'user-2',
+        createdAt: new Date('2024-08-11'),
+        type: 'STORY',
+        city: 'Varanasi',
+        country: 'India',
+        text: 'I visited Varanasi during monsoon. The chaos, the rain, the peace — it changed me. Watching the Ganga Aarti ceremony from a boat on the river was an unforgettable spiritual experience.',
+    },
+    {
+        id: 'post-3',
+        userId: 'user-1',
+        createdAt: new Date('2024-08-10'),
+        type: 'TIP',
+        city: 'Bali',
+        country: 'Indonesia',
+        text: '💡 Tip for Bali: Rent a scooter only if you’re confident—traffic is intense near Ubud. For a more relaxed experience, hire a driver for the day. It\'s surprisingly affordable!'
+    },
+    {
+        id: 'post-4',
+        userId: 'user-2',
+        createdAt: new Date('2024-08-09'),
+        type: 'ITINERARY',
+        trip: sampleTrips.find(t => t.id === 'trip-3')!
+    },
+    {
+        id: 'post-5',
+        userId: 'user-1',
+        createdAt: new Date('2024-08-08'),
+        type: 'EXPERIENCE',
+        city: 'Barcelona',
+        country: 'Spain',
+        text: 'Barcelona is magical at night, but avoid La Rambla after 11 PM if you’re solo. The Gothic Quarter\'s narrow streets offer a much more authentic and safer vibe for an evening walk.',
+        imageUrl: 'https://picsum.photos/seed/barcelona-night/800/600',
+        imageHint: 'barcelona night street'
+    },
+    {
+        id: 'post-6',
+        userId: 'user-2',
+        createdAt: new Date('2024-08-07'),
+        type: 'ITINERARY',
+        trip: sampleTrips.find(t => t.id === 'trip-5')!
+    }
+]
