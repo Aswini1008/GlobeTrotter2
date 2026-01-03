@@ -29,7 +29,7 @@ export type Stop = {
   startDate: Date;
   endDate: Date;
   order: number;
-  activities: Activity[];
+  activities: Record<string, Activity[]>;
 };
 
 export type Activity = {

@@ -38,7 +38,7 @@ const ItineraryContent = ({ trip }: { trip: CommunityItineraryPost['trip'] }) =>
   const totalCost = trip.stops.reduce(
     (acc, stop) =>
       acc +
-      stop.activities.reduce((sum, activity) => sum + activity.estimatedCost, 0),
+      Object.values(stop.activities).flat().reduce((sum, activity) => sum + activity.estimatedCost, 0),
     0
   );
 

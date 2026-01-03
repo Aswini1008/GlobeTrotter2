@@ -41,7 +41,7 @@ export function BudgetView({ trip }: BudgetViewProps) {
   const totalCost = trip.stops.reduce(
     (acc, stop) =>
       acc +
-      stop.activities.reduce((sum, act) => sum + act.estimatedCost, 0),
+      Object.values(stop.activities).flat().reduce((sum, act) => sum + act.estimatedCost, 0),
     0
   );
   const budgetProgress = (totalCost / trip.totalBudget) * 100;
@@ -50,7 +50,7 @@ export function BudgetView({ trip }: BudgetViewProps) {
 
   const costPerCity = trip.stops.map((stop) => ({
     name: stop.city.split(',')[0],
-    total: stop.activities.reduce((sum, act) => sum + act.estimatedCost, 0),
+    total: Object.values(stop.activities).flat().reduce((sum, act) => sum + act.estimatedCost, 0),
   }));
 
   const tripDurationDays =
@@ -62,7 +62,7 @@ export function BudgetView({ trip }: BudgetViewProps) {
     setError(null);
     setSuggestions([]);
 
-    const activities = trip.stops.flatMap((stop) => stop.activities);
+    const activities = trip.stops.flatMap((stop) => Object.values(stop.activities).flat());
     if (activities.length === 0) {
       setError('Add some activities to get AI budget suggestions.');
       setIsLoading(false);

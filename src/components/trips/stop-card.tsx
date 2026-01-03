@@ -24,7 +24,8 @@ interface StopCardProps {
 }
 
 export function StopCard({ stop }: StopCardProps) {
-    const stopBudget = stop.activities.reduce((sum, act) => sum + act.estimatedCost, 0);
+    const stopActivities = Object.values(stop.activities).flat();
+    const stopBudget = stopActivities.reduce((sum, act) => sum + act.estimatedCost, 0);
   return (
     <Card className="shadow-md border">
       <CardHeader className="flex flex-row items-start justify-between">
@@ -48,10 +49,10 @@ export function StopCard({ stop }: StopCardProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-            {stop.activities.map(activity => (
+            {stopActivities.map(activity => (
                 <ActivityItem key={activity.id} activity={activity} />
             ))}
-            {stop.activities.length === 0 && (
+            {stopActivities.length === 0 && (
                 <div className="text-center py-6 text-muted-foreground">
                     <p>No activities planned for {stop.city} yet.</p>
                 </div>

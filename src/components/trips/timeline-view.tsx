@@ -18,7 +18,8 @@ export function TimelineView({ trip }: TimelineViewProps) {
       const activitiesForDay = trip.stops
         .flatMap((stop) => {
           if (currentDate >= stop.startDate && currentDate <= stop.endDate) {
-            return stop.activities.map((act) => ({ ...act, city: stop.city }));
+            const dateKey = format(currentDate, 'yyyy-MM-dd');
+            return (stop.activities[dateKey] || []).map(act => ({ ...act, city: stop.city }));
           }
           return [];
         })
