@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import { CommunityTripCard } from '@/components/community/community-trip-card';
 import { EmptyState } from '@/components/community/empty-state';
-import type { CommunityPost, User } from '@/lib/types';
+import type { CommunityPost, User, CommunityItineraryPost } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function CommunityPage() {
@@ -61,9 +61,13 @@ export default function CommunityPage() {
 
     let filtered = posts.filter((post) => {
       if (post.type === 'ITINERARY') {
+        const itineraryPost = post as CommunityItineraryPost & { creator: User };
+        // Defensive check to ensure trip object exists
+        if (!itineraryPost.trip) return false;
+        
         return (
-          post.trip.tripName.toLowerCase().includes(lowercasedQuery) ||
-          post.trip.stops.some((stop) =>
+          itineraryPost.trip.tripName.toLowerCase().includes(lowercasedQuery) ||
+          itineraryPost.trip.stops.some((stop) =>
             stop.city.toLowerCase().includes(lowercasedQuery)
           )
         );
