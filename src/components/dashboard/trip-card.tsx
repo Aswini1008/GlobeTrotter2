@@ -36,7 +36,7 @@ export function TripCard({ trip }: TripCardProps) {
           <div className="relative h-40 w-full">
             <Image
               src={trip.imageUrl}
-              alt={trip.description}
+              alt={trip.tripName}
               data-ai-hint={trip.imageHint}
               fill
               className="object-cover"

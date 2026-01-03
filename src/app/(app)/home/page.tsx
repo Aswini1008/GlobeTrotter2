@@ -79,7 +79,16 @@ export default function HomePage() {
 
   const [filteredTrips, setFilteredTrips] = React.useState<Trip[]>(sampleTrips);
   const [groupedTrips, setGroupedTrips] = React.useState<Record<string, Trip[]>>({});
-  const [filteredDestinations, setFilteredDestinations] = React.useState<Destination[]>(sampleDestinations);
+  
+  const filteredDestinations = React.useMemo(() => {
+    const lowercasedQuery = searchQuery.toLowerCase();
+    if (!lowercasedQuery) {
+      return sampleDestinations.slice(0, 4);
+    }
+    return sampleDestinations.filter(
+      (destination) => destination.city.toLowerCase().includes(lowercasedQuery) || destination.country.toLowerCase().includes(lowercasedQuery)
+    );
+  }, [searchQuery]);
   
   React.useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
@@ -89,11 +98,6 @@ export default function HomePage() {
         trip.tripName.toLowerCase().includes(lowercasedQuery) ||
         trip.stops.some(stop => stop.city.toLowerCase().includes(lowercasedQuery))
     );
-    
-    const popularDests = sampleDestinations.filter(
-      (destination) => destination.city.toLowerCase().includes(lowercasedQuery) || destination.country.toLowerCase().includes(lowercasedQuery)
-    );
-    setFilteredDestinations(popularDests.slice(0, 4));
 
     // Sorting logic
     trips.sort((a, b) => {
