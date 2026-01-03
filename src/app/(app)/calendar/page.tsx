@@ -22,16 +22,13 @@ import {
   isSameMonth,
   isSameDay,
   differenceInDays,
-  getDay,
 } from 'date-fns';
 
 import { sampleTrips } from '@/lib/placeholder-data';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -219,7 +216,7 @@ export default function CalendarPage() {
               </div>
             ))}
           </div>
-          <div className="relative grid grid-cols-7" style={{gridTemplateRows: 'repeat(5, minmax(0, 1fr))'}}>
+          <div className="relative grid grid-cols-7" style={{gridTemplateRows: 'repeat(6, minmax(0, 1fr))'}}>
              {days.map((day, dayIdx) => (
               <div
                 key={day.toString()}
@@ -255,7 +252,7 @@ export default function CalendarPage() {
                                 <Link href={`/trips/${trip.id}`}
                                    className={cn("absolute rounded-md p-1 text-xs cursor-pointer overflow-hidden border z-10", getTripColor(trip.id))}
                                    style={{
-                                       top: `calc(${weekRow * 9}rem + ${topPosition}rem)`, // 9rem is h-36
+                                       top: `calc(${weekRow * 9}rem + ${topPosition}rem)`,
                                        left: `${(trip.startDay % 7) * 100/7}%`,
                                        width: `${trip.span * 100/7}%`,
                                        height: '2rem',
