@@ -35,7 +35,6 @@ import {
 import { ActivityCard } from '@/components/activities/activity-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 
 const categories: { name: ActivityCategory; icon: React.ElementType }[] = [
