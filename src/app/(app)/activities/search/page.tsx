@@ -13,7 +13,7 @@ import {
   Utensils,
   Mountain,
   Drama,
-  Spa,
+  Smile,
   MapPin,
 } from 'lucide-react';
 import {
@@ -43,7 +43,7 @@ const categories: { name: ActivityCategory; icon: React.ElementType }[] = [
   { name: 'Food & Dining', icon: Utensils },
   { name: 'Adventure', icon: Mountain },
   { name: 'Culture', icon: Drama },
-  { name: 'Relaxation', icon: Spa },
+  { name: 'Relaxation', icon: Smile },
 ];
 const costs: ActivityCost[] = ['Free', '$', '$$', '$$$'];
 const durations: ActivityDuration[] = [
