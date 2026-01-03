@@ -76,6 +76,12 @@ export default function SettingsPage() {
   );
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -258,6 +264,7 @@ export default function SettingsPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
+            {isClient && (
             <div className="space-y-2">
               <Label>Theme</Label>
               <Select value={theme} onValueChange={setTheme}>
@@ -283,6 +290,7 @@ export default function SettingsPage() {
                 </SelectContent>
               </Select>
             </div>
+            )}
           </div>
           <div className="space-y-4">
             <div className="flex flex-row items-center justify-between rounded-lg border p-4">
@@ -436,5 +444,3 @@ export default function SettingsPage() {
     </div>
   );
 }
-
-    
