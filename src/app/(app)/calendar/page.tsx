@@ -8,6 +8,10 @@ import {
   ListFilter,
   ArrowUpDown,
   MapPin,
+  Edit,
+  Trash2,
+  DollarSign,
+  Clock,
 } from 'lucide-react';
 import {
   format,
@@ -46,9 +50,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import type { Trip } from '@/lib/types';
+import type { Trip, Activity } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 
 // Function to get a consistent color for a trip
 const getTripColor = (tripId: string) => {
@@ -68,10 +77,38 @@ const getTripColor = (tripId: string) => {
   return colors[Math.abs(hash) % colors.length];
 };
 
+const ActivityItem = ({ activity }: { activity: Activity }) => (
+  <div className="flex items-center justify-between p-2 bg-muted/30 rounded-md">
+    <div className="grid gap-0.5">
+      <p className="font-semibold text-sm">{activity.title}</p>
+      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+        <span className="flex items-center gap-1">
+          <DollarSign className="h-3 w-3" />
+          {activity.estimatedCost.toLocaleString()}
+        </span>
+        <span className="flex items-center gap-1">
+          <Clock className="h-3 w-3" />
+          {activity.duration}
+        </span>
+      </div>
+    </div>
+    <div className="flex items-center gap-1">
+        <Button variant="ghost" size="icon" className="h-7 w-7">
+            <Edit className="h-4 w-4" />
+        </Button>
+        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive">
+            <Trash2 className="h-4 w-4" />
+        </Button>
+    </div>
+  </div>
+);
+
+
 export default function CalendarPage() {
   const [currentMonth, setCurrentMonth] = React.useState(new Date());
   const [searchQuery, setSearchQuery] = React.useState('');
   const [filteredTrips, setFilteredTrips] = React.useState<Trip[]>(sampleTrips);
+  const [expandedDay, setExpandedDay] = React.useState<Date | null>(null);
 
   React.useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
@@ -101,7 +138,6 @@ export default function CalendarPage() {
   const days = eachDayOfInterval({ start: calendarStart, end: calendarEnd });
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  // Process trips to be easily placed on the grid
   const monthTrips = React.useMemo(() => {
     const events: (Trip & {
       startDay: number;
@@ -125,22 +161,37 @@ export default function CalendarPage() {
         events.push({ ...trip, startDay, span, level: 0 });
     }
 
-    // Basic layout algorithm to avoid overlap
     for (let i = 0; i < events.length; i++) {
         for (let j = 0; j < i; j++) {
             const e1 = events[i];
             const e2 = events[j];
-            // Check for overlap and if they are on the same level
             if (e1.level === e2.level && !(e1.startDay + e1.span <= e2.startDay || e1.startDay >= e2.startDay + e2.span)) {
                e1.level++;
-               j = -1; // Restart inner loop to re-check against all previous events
+               j = -1;
             }
         }
     }
-
     return events;
   }, [currentMonth, filteredTrips, calendarStart, calendarEnd]);
 
+  const activitiesByDay = (day: Date) => {
+    return sampleTrips
+      .flatMap(trip => trip.stops)
+      .flatMap(stop => {
+        if (isWithinInterval(day, { start: stop.startDate, end: stop.endDate })) {
+          return stop.activities.map(act => ({...act, city: stop.city}));
+        }
+        return [];
+      }).filter(Boolean) as (Activity & {city: string})[];
+  };
+
+  const handleDayClick = (day: Date) => {
+    if (expandedDay && isSameDay(day, expandedDay)) {
+        setExpandedDay(null);
+    } else {
+        setExpandedDay(day);
+    }
+  }
 
   return (
     <div className="flex flex-col gap-8">
@@ -217,32 +268,40 @@ export default function CalendarPage() {
             ))}
           </div>
           <div className="relative grid grid-cols-7" style={{gridTemplateRows: 'repeat(6, minmax(0, 1fr))'}}>
-             {days.map((day, dayIdx) => (
-              <div
-                key={day.toString()}
-                className={cn(
-                  'h-36 border-b border-r p-2 flex flex-col gap-1 relative last:border-r-0',
-                  dayIdx > 34 && 'border-b-0',
-                  (dayIdx + 1) % 7 === 0 && 'border-r-0',
-                  !isSameMonth(day, currentMonth) && 'bg-muted/50 text-muted-foreground'
-                )}
-              >
-                <span
-                  className={cn(
-                    'font-semibold mb-1',
-                    isSameDay(day, new Date()) &&
-                      'flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground'
-                  )}
-                >
-                  {format(day, 'd')}
-                </span>
-              </div>
-            ))}
+             {days.map((day, dayIdx) => {
+               const dayActivities = activitiesByDay(day);
+               const isExpanded = expandedDay && isSameDay(day, expandedDay);
+
+               return (
+                <Collapsible asChild key={day.toString()} open={isExpanded} onOpenChange={() => handleDayClick(day)}>
+                  <div className={cn('border-b border-r relative last:border-r-0 transition-all duration-300', dayIdx > 34 && 'border-b-0', (dayIdx + 1) % 7 === 0 && 'border-r-0')}>
+                      <CollapsibleTrigger asChild>
+                         <div className={cn("p-2 flex flex-col gap-1 cursor-pointer",
+                                !isSameMonth(day, currentMonth) && 'bg-muted/50 text-muted-foreground',
+                                isExpanded ? "h-auto" : "h-36"
+                              )}>
+                            <span className={cn('font-semibold mb-1 w-6 h-6 flex items-center justify-center rounded-full', isSameDay(day, new Date()) && 'bg-primary text-primary-foreground')}>
+                              {format(day, 'd')}
+                            </span>
+                         </div>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="p-2 pt-0 space-y-2">
+                           <h4 className="font-semibold text-sm">Activities</h4>
+                          {dayActivities.length > 0 ? (
+                              dayActivities.map(act => <ActivityItem key={act.id} activity={act} />)
+                          ) : (
+                              <p className="text-xs text-muted-foreground">No activities planned.</p>
+                          )}
+                      </CollapsibleContent>
+                  </div>
+                </Collapsible>
+               )
+            })}
             
             {monthTrips.map(trip => {
                 const cities = trip.stops.map(s => s.city.split(',')[0]);
                 const cityText = cities.length > 2 ? `${cities.slice(0, 2).join(', ')} & more` : cities.join(', ');
-                const topPosition = (2.5 + trip.level * 2.2); // Base offset + level height
+                const topPosition = (2.5 + trip.level * 2.2);
                 const weekRow = Math.floor(trip.startDay / 7);
 
                 return (
@@ -252,7 +311,7 @@ export default function CalendarPage() {
                                 <Link href={`/trips/${trip.id}`}
                                    className={cn("absolute rounded-md p-1 text-xs cursor-pointer overflow-hidden border z-10", getTripColor(trip.id))}
                                    style={{
-                                       top: `calc(${weekRow * 9}rem + ${topPosition}rem)`,
+                                       top: `calc(${weekRow * (isSameDay(expandedDay || new Date(), new Date()) ? 9 : 9)}rem + ${topPosition}rem)`,
                                        left: `${(trip.startDay % 7) * 100/7}%`,
                                        width: `${trip.span * 100/7}%`,
                                        height: '2rem',
