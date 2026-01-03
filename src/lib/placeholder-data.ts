@@ -187,7 +187,7 @@ export const sampleTrips: Trip[] = [
             ],
             '2026-02-13': [
                 { id: 'act-202', stopId: 'stop-21', title: 'Lalbagh Botanical Garden', estimatedCost: 300, duration: '3 hours' },
-                { id 'act-203', stopId: 'stop-21', title: 'Cafe Hopping in Koramangala', estimatedCost: 1200, duration: '4 hours' },
+                { id: 'act-203', stopId: 'stop-21', title: 'Cafe Hopping in Koramangala', estimatedCost: 1200, duration: '4 hours' },
             ],
             '2026-02-14': [
                 { id: 'act-204', stopId: 'stop-21', title: 'Coorg Day Trip', estimatedCost: 6500, duration: 'Full day' },
