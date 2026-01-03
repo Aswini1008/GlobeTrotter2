@@ -25,6 +25,12 @@
       "imageHint": "taj mahal"
     },
     {
+      "id": "trip-mumbai",
+      "description": "The Gateway of India in Mumbai.",
+      "imageUrl": "https://images.unsplash.com/photo-1595658658481-d53d3f998647?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtdW1iYWl8ZW58MHx8fHwxNzY4MDY1NzMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mumbai india"
+    },
+    {
       "id": "login-bg",
       "description": "A person looking at a world map.",
       "imageUrl": "https://images.unsplash.com/photo-1497302347632-904729bc24aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmF2ZWwlMjBwbGFubmluZ3xlbnwwfHx8fDE3Njc0MTEzMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",

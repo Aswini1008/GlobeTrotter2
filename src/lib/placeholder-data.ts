@@ -1,3 +1,4 @@
+
 import type { Trip, User, CommunityPost } from './types';
 import { PlaceHolderImages } from './placeholder-images';
 
@@ -211,6 +212,31 @@ export const sampleTrips: Trip[] = [
     imageUrl: "https://picsum.photos/seed/outback/800/600",
     imageHint: "australian outback",
     description: "A photo of the Australian Outback"
+  },
+  {
+    id: 'trip-7',
+    userId: 'user-1',
+    tripName: 'Mumbai Getaway',
+    startDate: new Date('2025-01-13'),
+    endDate: new Date('2025-01-15'),
+    totalBudget: 1500,
+    isPublic: false,
+    createdAt: new Date('2024-12-01'),
+    stops: [
+       {
+        id: 'stop-10',
+        tripId: 'trip-7',
+        city: 'Mumbai, India',
+        startDate: new Date('2025-01-13'),
+        endDate: new Date('2025-01-15'),
+        order: 1,
+        activities: [
+          { id: 'act-15', stopId: 'stop-10', title: 'Gateway of India', estimatedCost: 0, duration: '1 hour' },
+          { id: 'act-16', stopId: 'stop-10', title: 'Street Food Tour', estimatedCost: 30, duration: '3 hours' },
+        ],
+      },
+    ],
+    ...tripImages.find(img => img.id === 'trip-mumbai')!,
   }
 ];
 
