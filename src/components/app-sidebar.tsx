@@ -21,7 +21,7 @@ import {
 import { Button } from './ui/button';
 
 const navItems = [
-  { href: '/dashboard', icon: Home, label: 'Dashboard' },
+  { href: '/home', icon: Home, label: 'Home' },
   { href: '/trips', icon: Plane, label: 'My Trips' },
   { href: '/settings', icon: Settings, label: 'Settings' },
 ];
@@ -33,7 +33,7 @@ export function AppSidebar() {
     <div className="hidden border-r bg-card md:block">
       <div className="flex h-full max-h-screen flex-col gap-2">
         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-          <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+          <Link href="/home" className="flex items-center gap-2 font-semibold">
             <GlobeTrotterLogo className="h-6 w-6 text-primary" />
             <span className="font-headline text-xl">GlobeTrotter</span>
           </Link>

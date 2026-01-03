@@ -28,7 +28,7 @@ export default function TripDetailsPage({
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <Link href="/dashboard">
+          <Link href="/home">
             <Button variant="outline" size="icon" className="h-8 w-8">
               <ChevronLeft className="h-4 w-4" />
               <span className="sr-only">Back</span>
