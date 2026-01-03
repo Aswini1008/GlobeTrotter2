@@ -8,6 +8,7 @@ import {
   Settings,
   User,
   LogOut,
+  Compass,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -29,6 +30,7 @@ import { cn } from '@/lib/utils';
 const navItems = [
   { href: '/home', icon: Home, label: 'Home' },
   { href: '/trips', icon: Plane, label: 'My Trips' },
+  { href: '/explore', icon: Compass, label: 'Explore' },
   { href: '/settings', icon: Settings, label: 'Settings' },
 ];
 

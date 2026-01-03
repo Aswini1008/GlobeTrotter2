@@ -57,7 +57,7 @@ const quickActions = [
     label: 'Budget Planner',
   },
   {
-    href: '#',
+    href: '/explore',
     icon: Compass,
     label: 'Explore Cities',
   },
