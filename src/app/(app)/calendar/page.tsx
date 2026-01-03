@@ -7,6 +7,7 @@ import {
   Search,
   ListFilter,
   ArrowUpDown,
+  MapPin,
 } from 'lucide-react';
 import {
   format,
@@ -20,6 +21,8 @@ import {
   eachDayOfInterval,
   isSameMonth,
   isSameDay,
+  differenceInDays,
+  getDay,
 } from 'date-fns';
 
 import { sampleTrips } from '@/lib/placeholder-data';
@@ -28,7 +31,9 @@ import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
@@ -47,6 +52,24 @@ import {
 import type { Trip } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+
+// Function to get a consistent color for a trip
+const getTripColor = (tripId: string) => {
+  const colors = [
+    'bg-blue-200 border-blue-300 text-blue-800',
+    'bg-green-200 border-green-300 text-green-800',
+    'bg-yellow-200 border-yellow-300 text-yellow-800',
+    'bg-purple-200 border-purple-300 text-purple-800',
+    'bg-pink-200 border-pink-300 text-pink-800',
+    'bg-indigo-200 border-indigo-300 text-indigo-800',
+  ];
+  // Simple hash function to get a consistent color
+  let hash = 0;
+  for (let i = 0; i < tripId.length; i++) {
+    hash = tripId.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return colors[Math.abs(hash) % colors.length];
+};
 
 export default function CalendarPage() {
   const [currentMonth, setCurrentMonth] = React.useState(new Date());
@@ -80,6 +103,43 @@ export default function CalendarPage() {
 
   const days = eachDayOfInterval({ start: calendarStart, end: calendarEnd });
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  // Process trips to be easily placed on the grid
+  const monthTrips = React.useMemo(() => {
+    const events: (Trip & {
+      startDay: number;
+      span: number;
+      level: number;
+    })[] = [];
+
+    const monthInterval = { start: calendarStart, end: calendarEnd };
+    
+    filteredTrips.forEach(trip => {
+      if (isWithinInterval(trip.startDate, monthInterval) || isWithinInterval(trip.endDate, monthInterval) || (trip.startDate < calendarStart && trip.endDate > calendarEnd)) {
+        const start = trip.startDate < calendarStart ? calendarStart : trip.startDate;
+        const end = trip.endDate > calendarEnd ? calendarEnd : trip.endDate;
+        const startDay = differenceInDays(start, calendarStart);
+        const span = differenceInDays(end, start) + 1;
+        events.push({ ...trip, startDay, span, level: 0 });
+      }
+    });
+
+    // Basic layout algorithm to avoid overlap
+    events.sort((a,b) => a.startDay - b.startDay);
+    for (let i = 0; i < events.length; i++) {
+        let level = 0;
+        for (let j = 0; j < i; j++) {
+            const e1 = events[i];
+            const e2 = events[j];
+            if (e1.startDay < e2.startDay + e2.span && e1.startDay + e1.span > e2.startDay && e1.level === e2.level) {
+               e1.level++;
+            }
+        }
+    }
+
+    return events;
+  }, [currentMonth, filteredTrips, calendarStart, calendarEnd]);
+
 
   return (
     <div className="flex flex-col gap-8">
@@ -131,7 +191,7 @@ export default function CalendarPage() {
       </div>
 
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between border-b">
+        <CardHeader className="flex flex-row items-center justify-between border-b px-4 py-3 sm:px-6">
           <h2 className="text-xl font-semibold font-headline">
             {format(currentMonth, 'MMMM yyyy')}
           </h2>
@@ -149,65 +209,69 @@ export default function CalendarPage() {
             {weekdays.map((day) => (
               <div
                 key={day}
-                className="py-2 text-center text-sm font-medium text-muted-foreground"
+                className="py-2 text-center text-sm font-medium text-muted-foreground border-r"
               >
                 {day}
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-7">
-            {days.map((day) => {
-              const tripsOnDay = filteredTrips.filter((trip) =>
-                isWithinInterval(day, {
-                  start: trip.startDate,
-                  end: trip.endDate,
-                })
-              );
-              return (
-                <div
-                  key={day.toString()}
+          <div className="relative grid grid-cols-7 grid-rows-5 gap-0">
+             {days.map((day, dayIdx) => (
+              <div
+                key={day.toString()}
+                className={cn(
+                  'h-36 border-b border-r p-2 flex flex-col gap-1 relative',
+                  !isSameMonth(day, currentMonth) && 'bg-muted/50 text-muted-foreground'
+                )}
+              >
+                <span
                   className={cn(
-                    'h-36 border-b border-r p-2 flex flex-col gap-1 overflow-hidden relative',
-                    !isSameMonth(day, currentMonth) && 'bg-muted/50 text-muted-foreground'
+                    'font-semibold mb-1',
+                    isSameDay(day, new Date()) &&
+                      'flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground'
                   )}
                 >
-                  <span
-                    className={cn(
-                      'font-semibold',
-                      isSameDay(day, new Date()) &&
-                        'flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground'
-                    )}
-                  >
-                    {format(day, 'd')}
-                  </span>
-                  <div className="flex-grow space-y-1 overflow-y-auto">
-                    {tripsOnDay.map((trip) => (
-                      <TooltipProvider key={trip.id}>
+                  {format(day, 'd')}
+                </span>
+              </div>
+            ))}
+            
+            {monthTrips.map(trip => {
+                const cities = trip.stops.map(s => s.city.split(',')[0]);
+                const cityText = cities.length > 2 ? `${cities.slice(0, 2).join(', ')} & more` : cities.join(', ');
+
+                return (
+                    <TooltipProvider key={trip.id}>
                         <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Link href={`/trips/${trip.id}`}>
-                              <Badge
-                                className="w-full truncate text-xs cursor-pointer"
-                                variant={
-                                  trip.isPublic ? 'default' : 'secondary'
-                                }
-                              >
-                                {trip.tripName}
-                              </Badge>
-                            </Link>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className="font-semibold">{trip.tripName}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {format(trip.startDate, 'MMM d')} - {format(trip.endDate, 'MMM d')}
-                            </p>
-                          </TooltipContent>
+                            <TooltipTrigger asChild>
+                                <Link href={`/trips/${trip.id}`}
+                                   className={cn("absolute rounded-md p-1 text-xs cursor-pointer overflow-hidden border", getTripColor(trip.id))}
+                                   style={{
+                                       top: `${Math.floor(trip.startDay / 7) * 9 + (trip.level * 3.5)}rem`, // 9rem is h-36, 3.5rem for each event level
+                                       left: `${(trip.startDay % 7) * 100/7}%`,
+                                       width: `${trip.span * 100/7}%`,
+                                       minHeight: '3rem',
+                                   }}
+                                >
+                                    <p className="font-bold truncate">{trip.tripName}</p>
+                                    <div className="flex items-center gap-1 truncate text-xs">
+                                        <MapPin className="h-3 w-3 shrink-0" />
+                                        <span>{cityText}</span>
+                                    </div>
+                                </Link>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p className="font-semibold">{trip.tripName}</p>
+                                <p className="text-sm text-muted-foreground">
+                                    {format(trip.startDate, 'MMM d')} - {format(trip.endDate, 'MMM d')}
+                                </p>
+                                <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                                    <MapPin className="h-4 w-4" /> {trip.stops.map(s => s.city).join(', ')}
+                                </p>
+                            </TooltipContent>
                         </Tooltip>
-                      </TooltipProvider>
-                    ))}
-                  </div>
-                </div>
-              );
+                    </TooltipProvider>
+                )
             })}
           </div>
         </CardContent>
