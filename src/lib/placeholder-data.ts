@@ -15,7 +15,29 @@ export const sampleUser2: User = {
   photoURL: 'https://i.pravatar.cc/150?u=rohan',
 };
 
-const allUsers = [sampleUser, sampleUser2];
+export const sampleUser3: User = {
+  id: 'user-3',
+  fullName: 'Virat Kumar',
+  email: 'virat.kumar@example.com',
+  photoURL: 'https://i.pravatar.cc/150?u=virat',
+};
+
+export const sampleUser4: User = {
+  id: 'user-4',
+  fullName: 'Priya Patel',
+  email: 'priya.patel@example.com',
+  photoURL: 'https://i.pravatar.cc/150?u=priya',
+};
+
+export const sampleUser5: User = {
+  id: 'user-5',
+  fullName: 'Jeeva Shankar',
+  email: 'jeeva.shankar@example.com',
+  photoURL: 'https://i.pravatar.cc/150?u=jeeva',
+};
+
+
+const allUsers = [sampleUser, sampleUser2, sampleUser3, sampleUser4, sampleUser5];
 
 export const getUserById = (id: string): User | undefined => {
     return allUsers.find(u => u.id === id);
@@ -57,7 +79,7 @@ export const sampleTrips: Trip[] = [
     startDate: new Date('2024-11-05'),
     endDate: new Date('2024-11-10'),
     totalBudget: 30000,
-    isPublic: false,
+    isPublic: true,
     createdAt: new Date('2024-09-15'),
     stops: [
       {
@@ -136,6 +158,33 @@ export const sampleTrips: Trip[] = [
     ...tripImages.find(img => img.id === 'trip-goa')!,
   },
   {
+    id: 'trip-5',
+    userId: 'user-4',
+    tripName: 'Spiritual Rishikesh',
+    startDate: new Date('2025-03-01'),
+    endDate: new Date('2025-03-05'),
+    totalBudget: 22000,
+    isPublic: true,
+    createdAt: new Date('2025-02-01'),
+    stops: [
+      {
+        id: 'stop-8',
+        tripId: 'trip-5',
+        city: 'Rishikesh, Uttarakhand',
+        startDate: new Date('2025-03-01'),
+        endDate: new Date('2025-03-05'),
+        order: 1,
+        activities: [
+            { id: 'act-13', stopId: 'stop-8', title: 'River Rafting', estimatedCost: 2500, duration: 'Half day' },
+            { id: 'act-14', stopId: 'stop-8', title: 'Visit Beatles Ashram', estimatedCost: 600, duration: '3 hours' },
+        ],
+      },
+    ],
+    imageUrl: 'https://picsum.photos/seed/rishikesh/800/600',
+    imageHint: 'rishikesh river',
+    description: 'A spiritual journey to the yoga capital of the world, Rishikesh.'
+  },
+  {
     id: 'trip-7',
     userId: 'user-1',
     tripName: 'Mumbai Getaway',
@@ -181,6 +230,8 @@ export const sampleCommunityPosts: CommunityPost[] = [
         city: 'Varanasi',
         country: 'India',
         text: 'I visited Varanasi during monsoon. The chaos, the rain, the peace — it changed me. Watching the Ganga Aarti ceremony from a boat on the river was an unforgettable spiritual experience.',
+        imageUrl: 'https://picsum.photos/seed/varanasi-ghat/800/600',
+        imageHint: 'varanasi ghat',
         likes: 247,
         comments: 42,
     },
@@ -217,4 +268,63 @@ export const sampleCommunityPosts: CommunityPost[] = [
         likes: 188,
         comments: 25,
     },
+    {
+        id: 'post-6',
+        userId: 'user-3',
+        createdAt: new Date('2025-01-15'),
+        type: 'EXPERIENCE',
+        city: 'Srinagar',
+        country: 'Jammu & Kashmir',
+        text: 'A shikara ride on Dal Lake is pure bliss. The floating markets and majestic mountains in the background are a sight to behold.',
+        imageUrl: 'https://picsum.photos/seed/dal-lake/800/600',
+        imageHint: 'dal lake shikara',
+        likes: 215,
+        comments: 31,
+    },
+    {
+        id: 'post-7',
+        userId: 'user-4',
+        createdAt: new Date('2025-02-10'),
+        type: 'ITINERARY',
+        trip: sampleTrips.find(t => t.id === 'trip-5')!,
+        likes: 155,
+        comments: 22,
+    },
+    {
+        id: 'post-8',
+        userId: 'user-5',
+        createdAt: new Date('2025-02-18'),
+        type: 'STORY',
+        city: 'Hampi',
+        country: 'Karnataka',
+        text: 'Exploring the ruins of Hampi felt like stepping back in time. The scale of the Vijayanagara Empire is just mind-boggling. Tip: Rent a bicycle to cover the vast area.',
+        imageUrl: 'https://picsum.photos/seed/hampi-ruins/800/600',
+        imageHint: 'hampi ruins',
+        likes: 190,
+        comments: 28,
+    },
+    {
+        id: 'post-9',
+        userId: 'user-3',
+        createdAt: new Date('2025-03-05'),
+        type: 'TIP',
+        city: 'Mumbai',
+        country: 'India',
+        text: 'Trying the Vada Pav at a local stall is a must-do in Mumbai. Don\'t be afraid to try the street food, it\'s the soul of the city!',
+        likes: 120,
+        comments: 15,
+    },
+    {
+        id: 'post-10',
+        userId: 'user-4',
+        createdAt: new Date('2025-03-20'),
+        type: 'EXPERIENCE',
+        city: 'Jaipur',
+        country: 'Rajasthan',
+        text: 'The intricate designs of Hawa Mahal are even more stunning in person. Go early in the morning to see it glow in the soft sunlight.',
+        imageUrl: 'https://picsum.photos/seed/hawa-mahal/800/600',
+        imageHint: 'hawa mahal',
+        likes: 310,
+        comments: 45,
+    }
 ]
