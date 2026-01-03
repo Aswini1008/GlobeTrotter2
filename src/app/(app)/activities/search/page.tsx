@@ -9,6 +9,12 @@ import {
   Clock,
   DollarSign,
   X,
+  Eye,
+  Utensils,
+  Mountain,
+  Drama,
+  Spa,
+  MapPin,
 } from 'lucide-react';
 import {
   sampleActivities,
@@ -26,18 +32,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
 import { ActivityCard } from '@/components/activities/activity-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
-const categories: ActivityCategory[] = [
-  'Sightseeing',
-  'Food & Dining',
-  'Adventure',
-  'Culture',
-  'Relaxation',
+const categories: { name: ActivityCategory; icon: React.ElementType }[] = [
+  { name: 'Sightseeing', icon: Eye },
+  { name: 'Food & Dining', icon: Utensils },
+  { name: 'Adventure', icon: Mountain },
+  { name: 'Culture', icon: Drama },
+  { name: 'Relaxation', icon: Spa },
 ];
 const costs: ActivityCost[] = ['Free', '$', '$$', '$$$'];
 const durations: ActivityDuration[] = [
@@ -48,6 +54,7 @@ const durations: ActivityDuration[] = [
 ];
 
 export default function ActivitySearchPage() {
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState(true);
   const [activities, setActivities] =
     React.useState<SearchableActivity[]>(sampleActivities);
@@ -63,24 +70,29 @@ export default function ActivitySearchPage() {
     duration: [],
   });
 
+  const [addedActivities, setAddedActivities] = React.useState<Set<string>>(
+    new Set()
+  );
+
   React.useEffect(() => {
     // Simulate API fetch
-    setTimeout(() => {
+    const timer = setTimeout(() => {
+      setActivities(sampleActivities);
       setIsLoading(false);
     }, 750);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleFilterChange = (
     type: 'category' | 'cost' | 'duration',
-    value: string,
-    checked: boolean
+    value: string
   ) => {
     setFilters((prev) => {
       const existing = prev[type] as string[];
-      if (checked) {
-        return { ...prev, [type]: [...existing, value] };
-      } else {
+      if (existing.includes(value)) {
         return { ...prev, [type]: existing.filter((item) => item !== value) };
+      } else {
+        return { ...prev, [type]: [...existing, value] };
       }
     });
   };
@@ -90,6 +102,7 @@ export default function ActivitySearchPage() {
   };
 
   const filteredActivities = React.useMemo(() => {
+    setIsLoading(true);
     const lowercasedQuery = searchQuery.toLowerCase();
 
     let filtered = activities.filter((activity) => {
@@ -118,10 +131,17 @@ export default function ActivitySearchPage() {
           return a.estimatedCost - b.estimatedCost;
         case 'price_desc':
           return b.estimatedCost - a.estimatedCost;
+        case 'duration':
+            const durationA = durations.indexOf(a.duration);
+            const durationB = durations.indexOf(b.duration);
+            return durationA - durationB;
         default:
           return 0;
       }
     });
+    
+    // Simulate loading for filter changes
+    setTimeout(() => setIsLoading(false), 300);
 
     return filtered;
   }, [searchQuery, activities, sortOption, filters]);
@@ -130,6 +150,14 @@ export default function ActivitySearchPage() {
     (acc, curr) => acc + curr.length,
     0
   );
+  
+  const handleAddActivity = (activity: SearchableActivity) => {
+    setAddedActivities(prev => new Set(prev.add(activity.id)));
+    toast({
+        title: 'Activity Added!',
+        description: `"${activity.name}" has been added to your trip.`,
+    })
+  }
 
   return (
     <div className="flex flex-col gap-8">
@@ -137,8 +165,11 @@ export default function ActivitySearchPage() {
         <h1 className="text-3xl font-bold tracking-tight font-headline">
           Activities in Paris
         </h1>
-        <p className="text-muted-foreground">
-          Discover and add unique experiences to your itinerary.
+        <div className="flex items-center gap-4 text-muted-foreground">
+            <span className='flex items-center gap-1.5'><MapPin className='h-4 w-4' /> Paris, France</span>
+        </div>
+        <p className="text-muted-foreground mt-1">
+          Handpicked experiences curated for your trip.
         </p>
       </div>
 
@@ -150,83 +181,69 @@ export default function ActivitySearchPage() {
               <h3 className="font-semibold font-headline flex items-center gap-2">
                 <ListFilter className="h-5 w-5" /> Filters
               </h3>
-              {activeFilterCount > 0 && (
-                <Button variant="ghost" size="sm" onClick={clearFilters}>
-                  <X className="h-4 w-4 mr-1" />
-                  Clear
-                </Button>
-              )}
             </div>
 
             <div className="space-y-6">
               {/* Category Filter */}
               <div>
-                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-                  <Tag className="h-4 w-4" /> Category
-                </h4>
+                <h4 className="font-semibold text-sm mb-3">Category</h4>
                 <div className="space-y-2">
                   {categories.map((cat) => (
-                    <div key={cat} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`cat-${cat}`}
-                        checked={filters.category.includes(cat)}
-                        onCheckedChange={(c) =>
-                          handleFilterChange('category', cat, !!c)
-                        }
-                      />
-                      <Label htmlFor={`cat-${cat}`} className="font-normal">
-                        {cat}
-                      </Label>
-                    </div>
+                     <Button
+                      key={cat.name}
+                      variant={filters.category.includes(cat.name) ? 'secondary' : 'ghost'}
+                      className="w-full justify-start gap-2"
+                      onClick={() => handleFilterChange('category', cat.name)}
+                    >
+                      <cat.icon className="h-4 w-4" />
+                      {cat.name}
+                    </Button>
                   ))}
                 </div>
               </div>
 
               {/* Cost Filter */}
               <div>
-                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-                  <DollarSign className="h-4 w-4" /> Cost
-                </h4>
-                <div className="space-y-2">
+                <h4 className="font-semibold text-sm mb-3">Cost</h4>
+                 <div className="flex items-center gap-2">
                   {costs.map((cost) => (
-                    <div key={cost} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`cost-${cost}`}
-                        checked={filters.cost.includes(cost)}
-                        onCheckedChange={(c) =>
-                          handleFilterChange('cost', cost, !!c)
-                        }
-                      />
-                      <Label htmlFor={`cost-${cost}`} className="font-normal">
-                        {cost}
-                      </Label>
-                    </div>
+                     <Button
+                      key={cost}
+                      variant={filters.cost.includes(cost) ? 'secondary' : 'outline'}
+                      size="sm"
+                      className="flex-1"
+                      onClick={() => handleFilterChange('cost', cost)}
+                    >
+                      {cost}
+                    </Button>
                   ))}
                 </div>
               </div>
 
               {/* Duration Filter */}
               <div>
-                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-                  <Clock className="h-4 w-4" /> Duration
-                </h4>
-                <div className="space-y-2">
+                <h4 className="font-semibold text-sm mb-3">Duration</h4>
+                <div className="grid grid-cols-2 gap-2">
                   {durations.map((dur) => (
-                    <div key={dur} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`dur-${dur}`}
-                        checked={filters.duration.includes(dur)}
-                        onCheckedChange={(c) =>
-                          handleFilterChange('duration', dur, !!c)
-                        }
-                      />
-                      <Label htmlFor={`dur-${dur}`} className="font-normal">
-                        {dur}
-                      </Label>
-                    </div>
+                    <Button
+                      key={dur}
+                      variant={filters.duration.includes(dur) ? 'secondary' : 'outline'}
+                      size="sm"
+                      onClick={() => handleFilterChange('duration', dur)}
+                      className="text-xs px-2 h-8"
+                    >
+                      {dur}
+                    </Button>
                   ))}
                 </div>
               </div>
+                
+              {activeFilterCount > 0 && (
+                <Button variant="ghost" size="sm" onClick={clearFilters} className="w-full mt-4">
+                  <X className="h-4 w-4 mr-1" />
+                  Clear all filters
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -238,7 +255,7 @@ export default function ActivitySearchPage() {
             <div className="relative w-full md:w-auto md:flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
-                placeholder="Search activities, landmarks..."
+                placeholder="Search landmarks, tours, food, experiences..."
                 className="pl-10 h-11"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -252,11 +269,10 @@ export default function ActivitySearchPage() {
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="rating">Popularity</SelectItem>
-                    <SelectItem value="price_asc">Price (Low-High)</SelectItem>
-                    <SelectItem value="price_desc">
-                      Price (High-Low)
-                    </SelectItem>
+                    <SelectItem value="rating">Recommended</SelectItem>
+                    <SelectItem value="price_asc">Price: Low-High</SelectItem>
+                    <SelectItem value="price_desc">Price: High-Low</SelectItem>
+                    <SelectItem value="duration">Shortest Time</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -282,7 +298,7 @@ export default function ActivitySearchPage() {
                 ))
               : filteredActivities.length > 0
               ? filteredActivities.map((activity) => (
-                  <ActivityCard key={activity.id} activity={activity} />
+                  <ActivityCard key={activity.id} activity={activity} isAdded={addedActivities.has(activity.id)} onAdd={() => handleAddActivity(activity)} />
                 ))
               : (
                   <div className="text-center py-16 rounded-lg border-2 border-dashed">
