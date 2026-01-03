@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "trip-1",
+      "description": "A beautiful European city street.",
+      "imageUrl": "https://images.unsplash.com/photo-1610651219730-6b580d616e72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxldXJvcGUlMjBjaXR5fGVufDB8fHx8MTc2NzQxMTMzNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "europe city"
+    },
+    {
+      "id": "trip-2",
+      "description": "A tropical beach with palm trees.",
+      "imageUrl": "https://images.unsplash.com/photo-1551523713-c1473aa01d9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dHJvcGljYWwlMjBiZWFjaHxlbnwwfHx8fDE3NjczNzI0OTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tropical beach"
+    },
+    {
+      "id": "trip-3",
+      "description": "Mountain range with a clear blue sky.",
+      "imageUrl": "https://images.unsplash.com/photo-1517934496827-1bbc390aed96?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb3VudGFpbiUyMGFkdmVudHVyZXxlbnwwfHx8fDE3Njc0MTEzMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mountain adventure"
+    },
+    {
+      "id": "trip-4",
+      "description": "A bustling cityscape at night.",
+      "imageUrl": "https://images.unsplash.com/photo-1588312744377-2adfb7b8578a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaXR5JTIwbmlnaHR8ZW58MHx8fHwxNzY3MzQzODk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city night"
+    },
+    {
+      "id": "login-bg",
+      "description": "A person looking at a world map.",
+      "imageUrl": "https://images.unsplash.com/photo-1497302347632-904729bc24aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmF2ZWwlMjBwbGFubmluZ3xlbnwwfHx8fDE3Njc0MTEzMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "travel planning"
+    }
+  ]
 }
