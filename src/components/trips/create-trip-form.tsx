@@ -142,12 +142,12 @@ export function CreateTripForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    // Here you would typically save data to Firestore
+    // Here you would typically save data to Firestore and get a new trip ID
     toast({
       title: 'Trip Created!',
       description: 'Redirecting to your new itinerary...',
     });
-    // In a real app, this would be the ID of the new trip
+    // Simulating navigation to a newly created trip's page
     router.push('/trips/trip-1');
   }
 
