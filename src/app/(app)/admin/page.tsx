@@ -24,10 +24,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useUser } from '@/context/user-context';
+import { useRouter } from 'next/navigation';
 
 export default function AdminDashboardPage() {
-  // In a real app, you'd implement role-based access control here.
-  // For this demo, we'll assume the user is an admin.
+  const { user } = useUser();
+  const router = useRouter();
+
+  // In a real app, this would be a server-side check or a more robust client-side guard.
+  React.useEffect(() => {
+    if (user?.role !== 'admin') {
+      router.push('/home'); // Or a dedicated /access-denied page
+    }
+  }, [user, router]);
+  
+  if (user?.role !== 'admin') {
+      // Render a loading state or null while redirecting
+      return null; 
+  }
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6 bg-gray-900 text-white">

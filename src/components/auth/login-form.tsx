@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Chrome } from 'lucide-react';
+import { Chrome, Facebook } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/context/user-context';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
@@ -27,6 +28,7 @@ const formSchema = z.object({
 export function LoginForm() {
   const router = useRouter();
   const { toast } = useToast();
+  const { login } = useUser();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,6 +43,15 @@ export function LoginForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log('Form Submitted with values:', values);
     // Here you would typically handle firebase authentication
+    // For this demo, we'll simulate a successful user login
+    login({
+        id: 'user-2',
+        fullName: 'Rohan Sharma',
+        email: values.email,
+        photoURL: '/avatars/rohan.png',
+        role: 'user', // Explicitly a user
+    });
+
     toast({
       title: 'Login Successful',
       description: 'Redirecting to your dashboard...',
@@ -91,17 +102,17 @@ export function LoginForm() {
           >
             {formState.isSubmitting ? 'Logging in...' : 'Login'}
           </Button>
+          <div className="text-center text-sm">
+            <Link
+              href="/forgot-password"
+              className="underline"
+            >
+              Forgot your password?
+            </Link>
+          </div>
         </form>
       </Form>
-      <div className="text-center text-sm">
-        <Link
-          href="/forgot-password"
-          className="underline"
-        >
-          Forgot your password?
-        </Link>
-      </div>
-      <div className="relative">
+      <div className="relative my-4">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -111,10 +122,16 @@ export function LoginForm() {
           </span>
         </div>
       </div>
-      <Button variant="outline" className="w-full">
-        <Chrome className="mr-2 h-4 w-4" />
-        Google
-      </Button>
+      <div className="grid grid-cols-2 gap-4">
+        <Button variant="outline" className="w-full">
+          <Chrome className="mr-2 h-4 w-4" />
+          Google
+        </Button>
+         <Button variant="outline" className="w-full">
+          <Facebook className="mr-2 h-4 w-4" />
+          Facebook
+        </Button>
+      </div>
       <div className="mt-4 text-center text-sm">
         Don&apos;t have an account?{' '}
         <Link href="/register" className="underline text-primary">

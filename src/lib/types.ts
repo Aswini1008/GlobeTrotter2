@@ -7,6 +7,7 @@ export type User = {
   photoURL?: string;
   city?: string;
   country?: string;
+  role: 'user' | 'admin';
 };
 
 export type Trip = {

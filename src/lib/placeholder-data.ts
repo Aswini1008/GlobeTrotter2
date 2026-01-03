@@ -6,6 +6,7 @@ export const sampleUser: User = {
   fullName: 'Aswini S M',
   email: 'aswini.sm@example.com',
   photoURL: '/avatars/aswini.png',
+  role: 'admin',
 };
 
 export const sampleUser2: User = {
@@ -13,6 +14,7 @@ export const sampleUser2: User = {
   fullName: 'Rohan Sharma',
   email: 'rohan.sharma@example.com',
   photoURL: '/avatars/rohan.png',
+  role: 'user',
 };
 
 export const sampleUser3: User = {
@@ -20,6 +22,7 @@ export const sampleUser3: User = {
   fullName: 'Virat Kumar',
   email: 'virat.kumar@example.com',
   photoURL: '/avatars/virat.png',
+  role: 'user',
 };
 
 export const sampleUser4: User = {
@@ -27,6 +30,7 @@ export const sampleUser4: User = {
   fullName: 'Priya Patel',
   email: 'priya.patel@example.com',
   photoURL: '/avatars/priya.png',
+  role: 'user',
 };
 
 export const sampleUser5: User = {
@@ -34,6 +38,7 @@ export const sampleUser5: User = {
   fullName: 'Jeeva Shankar',
   email: 'jeeva.shankar@example.com',
   photoURL: '/avatars/jeeva.png',
+  role: 'user',
 };
 
 
@@ -118,6 +123,54 @@ export const sampleTrips: Trip[] = [
     imageUrl: 'https://images.unsplash.com/photo-1532375836203-32433b499187?q=80&w=1920',
     description: 'A collage of iconic Indian landmarks and scenery',
     imageHint: 'incredible india collage'
+  },
+  {
+    id: 'trip-2',
+    userId: 'user-2',
+    tripName: 'Goa Getaway',
+    startDate: new Date('2026-03-05'),
+    endDate: new Date('2026-03-10'),
+    totalBudget: 20000,
+    isPublic: false,
+    createdAt: new Date('2026-01-15'),
+    stops: [
+      {
+        id: 'stop-2',
+        tripId: 'trip-2',
+        city: 'Goa, India',
+        startDate: new Date('2026-03-05'),
+        endDate: new Date('2026-03-10'),
+        order: 1,
+        activities: {},
+      },
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1590372728286-95701c385863?q=80&w=1920',
+    description: 'A beautiful beach in Goa with a stunning sunset',
+    imageHint: 'goa beach sunset',
+  },
+  {
+    id: 'trip-1',
+    userId: 'user-1',
+    tripName: 'Ooty Weekend',
+    startDate: new Date('2026-04-12'),
+    endDate: new Date('2026-04-14'),
+    totalBudget: 15000,
+    isPublic: true,
+    createdAt: new Date('2026-02-01'),
+    stops: [
+       {
+        id: 'stop-1',
+        tripId: 'trip-1',
+        city: 'Ooty, Tamil Nadu',
+        startDate: new Date('2026-04-12'),
+        endDate: new Date('2026-04-14'),
+        order: 1,
+        activities: {},
+      },
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1613436859363-a725a39c4a4e?q=80&w=1920',
+    description: 'A scenic view of the rolling tea gardens in Ooty',
+    imageHint: 'ooty tea gardens',
   },
 ];
 

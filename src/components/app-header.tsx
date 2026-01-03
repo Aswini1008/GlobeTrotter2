@@ -42,13 +42,15 @@ const navItems = [
 
 const adminNavItems = [
     { href: '/admin', icon: Shield, label: 'Admin' },
-    { href: '/settings', icon: Settings, label: 'Settings' },
 ];
 
 export function AppHeader() {
   const pathname = usePathname();
   const { user } = useUser();
   const nameInitial = user.fullName.charAt(0);
+  
+  const allNavItems = user.role === 'admin' ? [...navItems, ...adminNavItems] : navItems;
+  const bottomNavItems = [{ href: '/settings', icon: Settings, label: 'Settings' }];
   
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-card px-4 lg:h-[60px] lg:px-6">
@@ -67,7 +69,7 @@ export function AppHeader() {
             >
               <GlobeTrotterLogo />
             </Link>
-            {[...navItems, ...adminNavItems].map((item) => (
+            {[...allNavItems, ...bottomNavItems].map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
@@ -113,7 +115,7 @@ export function AppHeader() {
             </DropdownMenuItem>
           </Link>
           <DropdownMenuSeparator />
-           <Link href="/login">
+           <Link href={user.role === 'admin' ? '/admin-login' : '/login'}>
             <DropdownMenuItem>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Logout</span>
