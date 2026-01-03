@@ -15,12 +15,13 @@ const heroSections = [
       text: 'Breathe in the mountains.',
     },
     {
-      id: 'beaches',
-      src: 'https://images.unsplash.com/photo-1507525428034-b723a9ce6890?q=80&w=1920',
-      alt: 'Pristine beach with turquoise water',
-      hint: 'beach turquoise water',
-      text: 'Feel the rhythm of the ocean.',
-    },
+  id: 'sea',
+    src: 'https://picsum.photos/seed/ocean-cinematic/1920/1080',
+  alt: 'Calm blue sea',
+  hint: 'blue sea',
+  text: 'Let the sea set you free.',
+},
+
 ]
 
 const ImagePanel = ({

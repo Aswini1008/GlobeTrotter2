@@ -207,9 +207,9 @@ export function CreateTripForm() {
                         />
                       </FormControl>
                     </div>
-                     <FormDescription>
+                     {/* <FormDescription>
                       Start typing a destination to get AI suggestions.
-                    </FormDescription>
+                    </FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
