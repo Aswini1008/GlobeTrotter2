@@ -114,25 +114,29 @@ export default function CalendarPage() {
 
     const monthInterval = { start: calendarStart, end: calendarEnd };
     
-    filteredTrips.forEach(trip => {
-      if (isWithinInterval(trip.startDate, monthInterval) || isWithinInterval(trip.endDate, monthInterval) || (trip.startDate < calendarStart && trip.endDate > calendarEnd)) {
+    const relevantTrips = filteredTrips.filter(trip => 
+        isWithinInterval(trip.startDate, monthInterval) || 
+        isWithinInterval(trip.endDate, monthInterval) || 
+        (trip.startDate < calendarStart && trip.endDate > calendarEnd)
+    ).sort((a,b) => differenceInDays(a.startDate, b.startDate));
+
+    for (const trip of relevantTrips) {
         const start = trip.startDate < calendarStart ? calendarStart : trip.startDate;
         const end = trip.endDate > calendarEnd ? calendarEnd : trip.endDate;
         const startDay = differenceInDays(start, calendarStart);
         const span = differenceInDays(end, start) + 1;
         events.push({ ...trip, startDay, span, level: 0 });
-      }
-    });
+    }
 
     // Basic layout algorithm to avoid overlap
-    events.sort((a,b) => a.startDay - b.startDay);
     for (let i = 0; i < events.length; i++) {
-        let level = 0;
         for (let j = 0; j < i; j++) {
             const e1 = events[i];
             const e2 = events[j];
-            if (e1.startDay < e2.startDay + e2.span && e1.startDay + e1.span > e2.startDay && e1.level === e2.level) {
+            // Check for overlap and if they are on the same level
+            if (e1.level === e2.level && !(e1.startDay + e1.span <= e2.startDay || e1.startDay >= e2.startDay + e2.span)) {
                e1.level++;
+               j = -1; // Restart inner loop to re-check against all previous events
             }
         }
     }
@@ -209,18 +213,20 @@ export default function CalendarPage() {
             {weekdays.map((day) => (
               <div
                 key={day}
-                className="py-2 text-center text-sm font-medium text-muted-foreground border-r"
+                className="py-2 text-center text-sm font-medium text-muted-foreground border-r last:border-r-0"
               >
                 {day}
               </div>
             ))}
           </div>
-          <div className="relative grid grid-cols-7 grid-rows-5 gap-0">
+          <div className="relative grid grid-cols-7" style={{gridTemplateRows: 'repeat(5, minmax(0, 1fr))'}}>
              {days.map((day, dayIdx) => (
               <div
                 key={day.toString()}
                 className={cn(
-                  'h-36 border-b border-r p-2 flex flex-col gap-1 relative',
+                  'h-36 border-b border-r p-2 flex flex-col gap-1 relative last:border-r-0',
+                  dayIdx > 34 && 'border-b-0',
+                  (dayIdx + 1) % 7 === 0 && 'border-r-0',
                   !isSameMonth(day, currentMonth) && 'bg-muted/50 text-muted-foreground'
                 )}
               >
@@ -239,18 +245,20 @@ export default function CalendarPage() {
             {monthTrips.map(trip => {
                 const cities = trip.stops.map(s => s.city.split(',')[0]);
                 const cityText = cities.length > 2 ? `${cities.slice(0, 2).join(', ')} & more` : cities.join(', ');
+                const topPosition = (2.5 + trip.level * 2.2); // Base offset + level height
+                const weekRow = Math.floor(trip.startDay / 7);
 
                 return (
                     <TooltipProvider key={trip.id}>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link href={`/trips/${trip.id}`}
-                                   className={cn("absolute rounded-md p-1 text-xs cursor-pointer overflow-hidden border", getTripColor(trip.id))}
+                                   className={cn("absolute rounded-md p-1 text-xs cursor-pointer overflow-hidden border z-10", getTripColor(trip.id))}
                                    style={{
-                                       top: `${Math.floor(trip.startDay / 7) * 9 + (trip.level * 3.5)}rem`, // 9rem is h-36, 3.5rem for each event level
+                                       top: `calc(${weekRow * 9}rem + ${topPosition}rem)`, // 9rem is h-36
                                        left: `${(trip.startDay % 7) * 100/7}%`,
                                        width: `${trip.span * 100/7}%`,
-                                       minHeight: '3rem',
+                                       height: '2rem',
                                    }}
                                 >
                                     <p className="font-bold truncate">{trip.tripName}</p>
