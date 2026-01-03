@@ -283,7 +283,9 @@ export default function CalendarPage() {
 
   const tripDuration = (trip.endDate.getTime() - trip.startDate.getTime()) / (1000 * 3600 * 24) + 1;
   const totalCities = new Set(trip.stops.map(s => s.city)).size;
-  const totalCost = trip.stops.flatMap(s => Object.values(s.activities).flat()).reduce((sum, act) => sum + act.estimatedCost, 0);
+  const totalCost = trip.stops
+    .flatMap(s => Object.values(s.activities).flat())
+    .reduce((sum, act) => sum + act.estimatedCost, 0);
 
   if (isLoading) {
     return (
