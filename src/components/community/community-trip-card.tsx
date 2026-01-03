@@ -28,7 +28,7 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 
 interface CommunityTripCardProps {
-  post: CommunityPost & { creator: { firstName: string; lastName: string; photoURL?: string } };
+  post: CommunityPost & { creator: { fullName: string; photoURL?: string } };
 }
 
 const ItineraryContent = ({ trip }: { trip: CommunityItineraryPost['trip'] }) => {
@@ -44,8 +44,8 @@ const ItineraryContent = ({ trip }: { trip: CommunityItineraryPost['trip'] }) =>
 
   const budgetCategory = () => {
     const costPerDay = totalCost / tripDuration;
-    if (costPerDay < 100) return 'Budget';
-    if (costPerDay < 250) return 'Mid-Range';
+    if (costPerDay < 1500) return 'Budget';
+    if (costPerDay < 4000) return 'Mid-Range';
     return 'Luxury';
   };
 
@@ -151,13 +151,13 @@ export function CommunityTripCard({ post }: CommunityTripCardProps) {
         <Avatar>
           <AvatarImage
             src={creator.photoURL}
-            alt={`${creator.firstName} ${creator.lastName}`}
+            alt={`${creator.fullName}`}
           />
-          <AvatarFallback>{creator.firstName.charAt(0)}</AvatarFallback>
+          <AvatarFallback>{creator.fullName.charAt(0)}</AvatarFallback>
         </Avatar>
         <div className="grid gap-0.5">
           <p className="font-semibold">
-            {creator.firstName} {creator.lastName}
+            {creator.fullName}
           </p>
           <p className="text-xs text-muted-foreground">
             Shared {formatDistanceToNow(post.createdAt, { addSuffix: true })}

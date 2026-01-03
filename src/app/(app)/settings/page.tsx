@@ -85,9 +85,9 @@ export default function SettingsPage() {
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      fullName: `${sampleUser.firstName} ${sampleUser.lastName}`,
+      fullName: `${sampleUser.fullName}`,
       email: sampleUser.email,
-      phoneNumber: '+1 234 567 890', // sample data
+      phoneNumber: '+91 98765 43210', // sample data
       photoURL: sampleUser.photoURL,
     },
   });
@@ -158,10 +158,10 @@ export default function SettingsPage() {
                   >
                     <AvatarImage
                       src={imagePreview ?? undefined}
-                      alt={`${sampleUser.firstName} profile picture`}
+                      alt={`${sampleUser.fullName} profile picture`}
                     />
                     <AvatarFallback className="text-3xl">
-                      {sampleUser.firstName.charAt(0)}
+                      {sampleUser.fullName.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
                   <button
@@ -181,7 +181,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold font-headline">{`${sampleUser.firstName} ${sampleUser.lastName}`}</h2>
+                  <h2 className="text-2xl font-bold font-headline">{`${sampleUser.fullName}`}</h2>
                   <p className="text-muted-foreground">{sampleUser.email}</p>
                 </div>
               </div>
@@ -209,7 +209,7 @@ export default function SettingsPage() {
                       <FormControl>
                         <Input
                           type="email"
-                          placeholder="name@example.com"
+                          placeholder="yourname@example.com"
                           {...field}
                         />
                       </FormControl>
@@ -226,7 +226,7 @@ export default function SettingsPage() {
                       <FormControl>
                         <Input
                           type="tel"
-                          placeholder="+1 234 567 890"
+                          placeholder="+91 98765 43210"
                           {...field}
                         />
                       </FormControl>

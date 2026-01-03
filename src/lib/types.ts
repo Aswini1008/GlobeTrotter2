@@ -2,8 +2,7 @@ import type { ImagePlaceholder } from './placeholder-images';
 
 export type User = {
   id: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   photoURL?: string;
   city?: string;

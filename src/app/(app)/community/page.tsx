@@ -142,7 +142,7 @@ export default function CommunityPage() {
       ) : filteredPosts.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start">
           {filteredPosts.map((post) => (
-            <CommunityTripCard key={post.id} post={post} />
+            <CommunityTripCard key={post.id} post={post as CommunityPost & { creator: User }} />
           ))}
         </div>
       ) : (

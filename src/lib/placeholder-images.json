@@ -1,28 +1,28 @@
 {
   "placeholderImages": [
     {
-      "id": "trip-1",
-      "description": "A beautiful European city street.",
-      "imageUrl": "https://images.unsplash.com/photo-1610651219730-6b580d616e72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxldXJvcGUlMjBjaXR5fGVufDB8fHx8MTc2NzQxMTMzNXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "europe city"
+      "id": "trip-ooty",
+      "description": "A beautiful view of the tea estates in Ooty.",
+      "imageUrl": "https://images.unsplash.com/photo-1613436859363-a725a39c4a4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvb3R5fGVufDB8fHx8MTc2ODExNTA1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ooty tea estate"
     },
     {
-      "id": "trip-2",
-      "description": "A tropical beach with palm trees.",
-      "imageUrl": "https://images.unsplash.com/photo-1551523713-c1473aa01d9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dHJvcGljYWwlMjBiZWFjaHxlbnwwfHx8fDE3NjczNzI0OTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "tropical beach"
+      "id": "trip-kerala",
+      "description": "A traditional houseboat on the Kerala backwaters.",
+      "imageUrl": "https://images.unsplash.com/photo-1593693397640-053a15c8a419?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxrZXJhbGElMjBiYWNrd2F0ZXJzfGVufDB8fHx8MTc2ODExNTA1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kerala backwaters"
     },
     {
-      "id": "trip-3",
-      "description": "Mountain range with a clear blue sky.",
-      "imageUrl": "https://images.unsplash.com/photo-1517934496827-1bbc390aed96?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb3VudGFpbiUyMGFkdmVudHVyZXxlbnwwfHx8fDE3Njc0MTEzMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "mountain adventure"
+      "id": "trip-madurai",
+      "description": "The colorful gopuram of the Meenakshi Amman Temple in Madurai.",
+      "imageUrl": "https://images.unsplash.com/photo-1578303512596-a9c044b36c84?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYWR1cmFpJTIwdGVtcGxlfGVufDB8fHx8MTc2ODExNTA1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "madurai temple"
     },
     {
-      "id": "trip-india",
-      "description": "The Taj Mahal in Agra, India.",
-      "imageUrl": "https://images.unsplash.com/photo-1548013146-72479768bada?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0YWolMjBtYWhhbHxlbnwwfHx8fDE3NjgwNjU2NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "taj mahal"
+      "id": "trip-goa",
+      "description": "A beautiful sunset on a beach in Goa.",
+      "imageUrl": "https://images.unsplash.com/photo-1590372728286-95701c385863?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnb2ElMjBiZWFjaHxlbnwwfHx8fDE3NjgxMTUwNTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "goa beach"
     },
     {
       "id": "trip-mumbai",
@@ -33,44 +33,8 @@
     {
       "id": "login-bg",
       "description": "A person looking at a world map.",
-      "imageUrl": "https://images.unsplash.com/photo-1497302347632-904729bc24aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmF2ZWwlMjBwbGFubmluZ3xlbnwwfHx8fDE3Njc0MTEzMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "travel planning"
-    },
-    {
-      "id": "activity-louvre",
-      "description": "The Louvre Museum pyramid in Paris.",
-      "imageUrl": "https://images.unsplash.com/photo-1567942585146-33d62b775db0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsb3V2cmUlMjBtdXNldW18ZW58MHx8fHwxNzY3MzYyMjU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "louvre museum"
-    },
-    {
-      "id": "activity-seine",
-      "description": "A boat on the Seine River at sunset.",
-      "imageUrl": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzZWluZSUyMHJpdmVyfGVufDB8fHx8MTc2NzQyNTA5MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "seine river"
-    },
-    {
-      "id": "activity-food-tour",
-      "description": "A variety of French pastries.",
-      "imageUrl": "https://images.unsplash.com/photo-1546237769-6f84ec1a512a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZnJlbmNoJTIwZm9vZHxlbnwwfHx8fDE3NjczMzc2MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "french food"
-    },
-    {
-      "id": "activity-montmartre",
-      "description": "A charming street in Montmartre, Paris.",
-      "imageUrl": "https://images.unsplash.com/photo-1618569388132-92ca192f40ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb250bWFydHJlJTIwcGFyaXN8ZW58MHx8fHwxNzY3NDI1MDkxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "montmartre paris"
-    },
-    {
-      "id": "activity-versailles",
-      "description": "The Palace of Versailles gardens.",
-      "imageUrl": "https://images.unsplash.com/photo-1667752920461-a5ea0883f438?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx2ZXJzYWlsbGVzJTIwcGFsYWNlfGVufDB8fHx8MTc2NzQyNTA5MHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "versailles palace"
-    },
-    {
-      "id": "activity-cooking",
-      "description": "Hands kneading dough in a cooking class.",
-      "imageUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb29raW5nJTIwY2xhc3N8ZW58MHx8fHwxNzY3MzIxOTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cooking class"
+      "imageUrl": "https://images.unsplash.com/photo-1504150558240-0b4fd23ab584?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0cmF2ZWwlMjBpbmRpYXxlbnwwfHx8fDE3NjgxMTUxNDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "travel india"
     }
   ]
 }

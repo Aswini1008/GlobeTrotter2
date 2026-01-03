@@ -89,7 +89,7 @@ export function CreateTripForm() {
     defaultValues: {
       tripName: '',
       destination: '',
-      totalBudget: 1000,
+      totalBudget: 10000,
       description: '',
     },
   });
@@ -171,7 +171,7 @@ export function CreateTripForm() {
                     <FormLabel>Trip Name</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="e.g., Summer in Italy"
+                        placeholder="e.g., Weekend Trip to Ooty"
                         {...field}
                       />
                     </FormControl>
@@ -190,7 +190,7 @@ export function CreateTripForm() {
                       <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <FormControl>
                         <Input
-                          placeholder="e.g., Paris, France"
+                          placeholder="e.g., Ooty, Tamil Nadu"
                           className="pl-8"
                           {...field}
                         />
@@ -257,13 +257,15 @@ export function CreateTripForm() {
                 name="totalBudget"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Total Budget</FormLabel>
+                    <FormLabel>Total Budget (INR)</FormLabel>
                     <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground">
+                        ₹
+                      </span>
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="2500"
+                          placeholder="25000"
                           className="pl-8"
                           {...field}
                         />
@@ -444,5 +446,3 @@ export function CreateTripForm() {
     </Form>
   );
 }
-
-    
