@@ -71,8 +71,14 @@ const profileFormSchema = z.object({
 export default function SettingsPage() {
   const { toast } = useToast();
   const { setTheme, theme } = useTheme();
+  const [currentUser, setCurrentUser] = React.useState({
+    fullName: sampleUser.fullName,
+    email: sampleUser.email,
+    photoURL: sampleUser.photoURL,
+  });
+
   const [imagePreview, setImagePreview] = React.useState<string | null>(
-    sampleUser.photoURL || null
+    currentUser.photoURL || null
   );
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -85,10 +91,10 @@ export default function SettingsPage() {
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      fullName: `${sampleUser.fullName}`,
-      email: sampleUser.email,
+      fullName: currentUser.fullName,
+      email: currentUser.email,
       phoneNumber: '+91 98765 43210', // sample data
-      photoURL: sampleUser.photoURL,
+      photoURL: currentUser.photoURL,
     },
   });
 
@@ -109,6 +115,11 @@ export default function SettingsPage() {
 
   function onSubmit(values: z.infer<typeof profileFormSchema>) {
     console.log('Form Submitted with values:', values);
+    setCurrentUser({
+      fullName: values.fullName,
+      email: values.email,
+      photoURL: values.photoURL || currentUser.photoURL,
+    });
     toast({
       title: 'Profile Updated',
       description: 'Your information has been successfully saved.',
@@ -158,10 +169,10 @@ export default function SettingsPage() {
                   >
                     <AvatarImage
                       src={imagePreview ?? undefined}
-                      alt={`${sampleUser.fullName} profile picture`}
+                      alt={`${currentUser.fullName} profile picture`}
                     />
                     <AvatarFallback className="text-3xl">
-                      {sampleUser.fullName.charAt(0)}
+                      {currentUser.fullName.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
                   <button
@@ -181,8 +192,8 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold font-headline">{`${sampleUser.fullName}`}</h2>
-                  <p className="text-muted-foreground">{sampleUser.email}</p>
+                  <h2 className="text-2xl font-bold font-headline">{currentUser.fullName}</h2>
+                  <p className="text-muted-foreground">{currentUser.email}</p>
                 </div>
               </div>
 
