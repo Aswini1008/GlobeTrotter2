@@ -163,10 +163,15 @@ export default function CalendarPage() {
             month={currentMonth}
             onMonthChange={setCurrentMonth}
             modifiers={{
-              trip: filteredTrips.map((trip) => ({
-                from: trip.startDate,
-                to: trip.endDate,
-              })),
+              trip: filteredTrips.flatMap((trip) => {
+                const dates = [];
+                let currentDate = new Date(trip.startDate);
+                while (currentDate <= trip.endDate) {
+                    dates.push(new Date(currentDate));
+                    currentDate.setDate(currentDate.getDate() + 1);
+                }
+                return dates;
+              }),
             }}
             modifiersClassNames={{
               trip: 'bg-primary/10',
@@ -174,7 +179,7 @@ export default function CalendarPage() {
             components={{
               DayContent: ({ date }) => dayContent(date),
             }}
-            className="p-0 [&_td]:h-28 [&_td]:align-top [&_td]:border"
+            className="p-0 [&_td]:h-28 [&_td]:align-top [&_td]:border [&_tr]:border-b-0"
           />
         </CardContent>
       </Card>
