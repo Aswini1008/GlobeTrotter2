@@ -38,19 +38,24 @@ export function BudgetView({ trip }: BudgetViewProps) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  const totalCost = trip.stops.reduce(
-    (acc, stop) =>
-      acc +
-      Object.values(stop.activities).flat().reduce((sum, act) => sum + act.estimatedCost, 0),
+  const allActivities = trip.stops.flatMap(stop =>
+    Object.values(stop.activities).flat()
+  );
+
+  const totalCost = allActivities.reduce(
+    (sum, act) => sum + act.estimatedCost,
     0
   );
+
   const budgetProgress = (totalCost / trip.totalBudget) * 100;
   const isOverBudget = budgetProgress > 100;
   const remainingBudget = trip.totalBudget - totalCost;
 
   const costPerCity = trip.stops.map((stop) => ({
     name: stop.city.split(',')[0],
-    total: Object.values(stop.activities).flat().reduce((sum, act) => sum + act.estimatedCost, 0),
+    total: Object.values(stop.activities)
+      .flat()
+      .reduce((sum, act) => sum + act.estimatedCost, 0),
   }));
 
   const tripDurationDays =

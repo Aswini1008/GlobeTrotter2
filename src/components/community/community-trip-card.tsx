@@ -35,12 +35,9 @@ const ItineraryContent = ({ trip }: { trip: CommunityItineraryPost['trip'] }) =>
   const tripDuration =
     (trip.endDate.getTime() - trip.startDate.getTime()) / (1000 * 3600 * 24) + 1;
 
-  const totalCost = trip.stops.reduce(
-    (acc, stop) =>
-      acc +
-      Object.values(stop.activities).flat().reduce((sum, activity) => sum + activity.estimatedCost, 0),
-    0
-  );
+  const totalCost = trip.stops
+    .flatMap(s => Object.values(s.activities).flat())
+    .reduce((sum, act) => sum + act.estimatedCost, 0);
 
   const budgetCategory = () => {
     const costPerDay = totalCost / tripDuration;

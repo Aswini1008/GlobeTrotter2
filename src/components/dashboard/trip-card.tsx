@@ -20,12 +20,9 @@ interface TripCardProps {
 }
 
 export function TripCard({ trip }: TripCardProps) {
-  const totalCost = trip.stops.reduce(
-    (acc, stop) =>
-      acc +
-      Object.values(stop.activities).flat().reduce((sum, activity) => sum + activity.estimatedCost, 0),
-    0
-  );
+  const totalCost = trip.stops
+    .flatMap(s => Object.values(s.activities).flat())
+    .reduce((sum, act) => sum + act.estimatedCost, 0);
   const budgetProgress = (totalCost / trip.totalBudget) * 100;
   const isOverBudget = budgetProgress > 100;
 
