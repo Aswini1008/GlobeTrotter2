@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { sampleTrips, sampleUser } from '@/lib/placeholder-data';
+import { sampleDestinations } from '@/lib/sample-destinations';
 import {
   ArrowRight,
   Map,
@@ -31,7 +32,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -47,6 +47,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import type { Trip } from '@/lib/types';
+import type { Destination } from '@/lib/sample-destinations';
 
 const quickActions = [
   {
@@ -71,45 +72,6 @@ const quickActions = [
   },
 ];
 
-const initialPopularDestinations = [
-  {
-    city: 'Tokyo, Japan',
-    image: {
-      imageUrl: 'https://picsum.photos/seed/tokyo/600/400',
-      imageHint: 'tokyo japan',
-      description: 'Tokyo',
-    },
-    budget: '1500',
-  },
-  {
-    city: 'Santorini, Greece',
-    image: {
-      imageUrl: 'https://picsum.photos/seed/greece/600/400',
-      imageHint: 'greece santorini',
-      description: 'Santorini',
-    },
-    budget: '2200',
-  },
-  {
-    city: 'New York, USA',
-    image: {
-      imageUrl: 'https://picsum.photos/seed/nyc/600/400',
-      imageHint: 'new york city',
-      description: 'NYC',
-    },
-    budget: '1800',
-  },
-  {
-    city: 'Bali, Indonesia',
-    image: {
-      imageUrl: 'https://picsum.photos/seed/bali/600/400',
-      imageHint: 'bali indonesia',
-      description: 'Bali',
-    },
-    budget: '1200',
-  },
-];
-
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [sortOption, setSortOption] = React.useState('date-desc');
@@ -117,7 +79,7 @@ export default function HomePage() {
 
   const [filteredTrips, setFilteredTrips] = React.useState<Trip[]>(sampleTrips);
   const [groupedTrips, setGroupedTrips] = React.useState<Record<string, Trip[]>>({});
-  const [filteredDestinations, setFilteredDestinations] = React.useState(initialPopularDestinations);
+  const [filteredDestinations, setFilteredDestinations] = React.useState<Destination[]>(sampleDestinations);
   
   React.useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
@@ -128,10 +90,10 @@ export default function HomePage() {
         trip.stops.some(stop => stop.city.toLowerCase().includes(lowercasedQuery))
     );
     
-    const popularDests = initialPopularDestinations.filter(
-      (destination) => destination.city.toLowerCase().includes(lowercasedQuery)
+    const popularDests = sampleDestinations.filter(
+      (destination) => destination.city.toLowerCase().includes(lowercasedQuery) || destination.country.toLowerCase().includes(lowercasedQuery)
     );
-    setFilteredDestinations(popularDests);
+    setFilteredDestinations(popularDests.slice(0, 4));
 
     // Sorting logic
     trips.sort((a, b) => {
@@ -251,9 +213,9 @@ export default function HomePage() {
                 <Card className="overflow-hidden transform hover:scale-[1.02] transition-transform duration-300 ease-in-out shadow-lg hover:shadow-2xl">
                   <div className="relative h-48 w-full">
                     <Image
-                      src={dest.image?.imageUrl || ''}
-                      alt={dest.image?.description || dest.city}
-                      data-ai-hint={dest.image?.imageHint}
+                      src={dest.imageUrl}
+                      alt={dest.city}
+                      data-ai-hint={`${dest.city} ${dest.country}`}
                       fill
                       className="object-cover"
                     />
@@ -263,7 +225,7 @@ export default function HomePage() {
                       {dest.city}
                     </CardTitle>
                     <CardDescription>
-                      Starting from ${dest.budget}
+                      {dest.country}
                     </CardDescription>
                   </CardHeader>
                 </Card>

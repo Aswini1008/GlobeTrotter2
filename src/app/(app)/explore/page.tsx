@@ -9,12 +9,13 @@ import type { Destination } from '@/lib/sample-destinations';
 
 export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [filteredDestinations, setFilteredDestinations] =
-    React.useState<Destination[]>(sampleDestinations);
 
-  React.useEffect(() => {
+  const filteredDestinations = React.useMemo(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
-    const filtered = sampleDestinations.filter(
+    if (!lowercasedQuery) {
+      return sampleDestinations;
+    }
+    return sampleDestinations.filter(
       (destination) =>
         destination.city.toLowerCase().includes(lowercasedQuery) ||
         destination.country.toLowerCase().includes(lowercasedQuery) ||
@@ -22,7 +23,6 @@ export default function ExplorePage() {
           tag.toLowerCase().includes(lowercasedQuery)
         )
     );
-    setFilteredDestinations(filtered);
   }, [searchQuery]);
 
   return (
