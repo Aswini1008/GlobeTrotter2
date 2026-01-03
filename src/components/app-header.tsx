@@ -59,8 +59,7 @@ export function AppHeader() {
               href="#"
               className="flex items-center gap-2 text-lg font-semibold mb-4"
             >
-              <GlobeTrotterLogo className="h-6 w-6 text-primary" />
-              <span className="sr-only">GlobeTrotter</span>
+              <GlobeTrotterLogo />
             </Link>
             {navItems.map((item) => (
               <Link

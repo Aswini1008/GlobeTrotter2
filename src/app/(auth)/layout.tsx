@@ -13,10 +13,9 @@ export default function AuthLayout({
     <div className="w-full h-screen lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
-          <div className="grid gap-2 text-center">
-            <div className="flex items-center justify-center gap-2">
-              <GlobeTrotterLogo className="h-8 w-8 text-primary" />
-              <h1 className="text-3xl font-bold font-headline">GlobeTrotter</h1>
+          <div className="grid gap-4 text-center">
+            <div className="flex items-center justify-center">
+                <GlobeTrotterLogo />
             </div>
             <p className="text-balance text-muted-foreground">
               Your next adventure starts here.
