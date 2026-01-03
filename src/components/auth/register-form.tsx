@@ -73,7 +73,7 @@ export function RegisterForm() {
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log('Form Submitted with values:', values);
     // Here you would typically handle firebase registration
     toast({
       title: 'Registration Successful',
@@ -232,3 +232,5 @@ export function RegisterForm() {
     </>
   );
 }
+
+    

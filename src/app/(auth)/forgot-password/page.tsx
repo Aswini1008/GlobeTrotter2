@@ -36,7 +36,7 @@ export default function ForgotPasswordPage() {
   const { formState } = form;
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log('Form Submitted with values:', values);
     // Here you would typically handle firebase password reset
     // For now, we'll just simulate success
     setIsSubmitted(true);
@@ -97,3 +97,5 @@ export default function ForgotPasswordPage() {
     </>
   );
 }
+
+    

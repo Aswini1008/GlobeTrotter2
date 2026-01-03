@@ -38,7 +38,7 @@ export function LoginForm() {
   const { formState } = form;
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log('Form Submitted with values:', values);
     // Here you would typically handle firebase authentication
     toast({
       title: 'Login Successful',
@@ -103,3 +103,5 @@ export function LoginForm() {
     </>
   );
 }
+
+    

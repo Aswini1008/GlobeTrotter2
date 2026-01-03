@@ -102,7 +102,7 @@ export default function SettingsPage() {
   };
 
   function onSubmit(values: z.infer<typeof profileFormSchema>) {
-    console.log(values);
+    console.log('Form Submitted with values:', values);
     toast({
       title: 'Profile Updated',
       description: 'Your information has been successfully saved.',
@@ -258,21 +258,6 @@ export default function SettingsPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Language</Label>
-              <Select defaultValue="en">
-                <SelectTrigger>
-                  <SelectValue placeholder="Select language" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="ta">Tamil</SelectItem>
-                  <SelectItem value="hi">Hindi</SelectItem>
-                  <SelectItem value="es">Spanish</SelectItem>
-                  <SelectItem value="fr">French</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
             <div className="space-y-2">
               <Label>Theme</Label>
               <Select value={theme} onValueChange={setTheme}>
@@ -451,3 +436,5 @@ export default function SettingsPage() {
     </div>
   );
 }
+
+    
