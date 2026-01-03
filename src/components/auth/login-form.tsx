@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Chrome, Github } from 'lucide-react';
+import { Chrome } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -111,16 +111,10 @@ export function LoginForm() {
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <Button variant="outline">
-          <Chrome className="mr-2 h-4 w-4" />
-          Google
-        </Button>
-        <Button variant="outline">
-          <Github className="mr-2 h-4 w-4" />
-          GitHub
-        </Button>
-      </div>
+      <Button variant="outline" className="w-full">
+        <Chrome className="mr-2 h-4 w-4" />
+        Google
+      </Button>
       <div className="mt-4 text-center text-sm">
         Don&apos;t have an account?{' '}
         <Link href="/register" className="underline text-primary">
