@@ -94,19 +94,20 @@ export function CreateTripForm() {
     },
   });
 
-  const { formState, setValue, getValues, trigger } = form;
+  const { formState, setValue, getValues, trigger, watch } = form;
 
-  const handleGetSuggestions = async () => {
+  const destinationValue = watch('destination');
+
+  const handleGetSuggestions = React.useCallback(async () => {
     const destinationIsValid = await trigger('destination');
-    if (!destinationIsValid) return;
+    if (!destinationIsValid || !destinationValue) return;
 
     setIsLoadingSuggestions(true);
     setSuggestionError(null);
     setSuggestions([]);
 
     try {
-      const destination = getValues('destination');
-      const result = await getTripSuggestions({ destination });
+      const result = await getTripSuggestions({ destination: destinationValue });
       setSuggestions(result.suggestions);
     } catch (error) {
       console.error('Failed to get suggestions:', error);
@@ -116,7 +117,7 @@ export function CreateTripForm() {
     } finally {
       setIsLoadingSuggestions(false);
     }
-  };
+  }, [trigger, destinationValue]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -184,33 +185,23 @@ export function CreateTripForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Destination</FormLabel>
-                    <div className="flex items-center gap-2">
-                      <div className="relative flex-grow">
-                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <FormControl>
-                          <Input
-                            placeholder="e.g., Paris, France"
-                            className="pl-8"
-                            {...field}
-                          />
-                        </FormControl>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleGetSuggestions}
-                        disabled={isLoadingSuggestions}
-                      >
-                        {isLoadingSuggestions ? (
-                          <Loader className="animate-spin" />
-                        ) : (
-                          <Wand2 />
-                        )}
-                        <span className="ml-2 hidden sm:inline">
-                          {isLoadingSuggestions ? 'Generating...' : 'Suggestions'}
-                        </span>
-                      </Button>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <FormControl>
+                        <Input
+                          placeholder="e.g., Paris, France"
+                          className="pl-8 pr-8"
+                          {...field}
+                          onBlur={handleGetSuggestions}
+                        />
+                      </FormControl>
+                      {isLoadingSuggestions && (
+                         <Loader className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
+                      )}
                     </div>
+                     <FormDescription>
+                      Type a destination and click away to get AI suggestions.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -434,8 +425,7 @@ export function CreateTripForm() {
               suggestions.length === 0 && (
                 <div className="text-center py-10 text-muted-foreground">
                   <p>
-                    Enter a destination and click the "Suggestions" button to
-                    get AI-powered ideas.
+                    Enter a destination and click away to get AI-powered ideas.
                   </p>
                 </div>
               )}
