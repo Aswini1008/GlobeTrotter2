@@ -19,10 +19,10 @@
       "imageHint": "mountain adventure"
     },
     {
-      "id": "trip-4",
-      "description": "A bustling cityscape at night.",
-      "imageUrl": "https://images.unsplash.com/photo-1588312744377-2adfb7b8578a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaXR5JTIwbmlnaHR8ZW58MHx8fHwxNzY3MzQzODk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "city night"
+      "id": "trip-india",
+      "description": "The Taj Mahal in Agra, India.",
+      "imageUrl": "https://images.unsplash.com/photo-1548013146-72479768bada?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0YWolMjBtYWhhbHxlbnwwfHx8fDE3NjgwNjU2NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "taj mahal"
     },
     {
       "id": "login-bg",

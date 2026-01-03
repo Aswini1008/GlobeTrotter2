@@ -59,7 +59,7 @@ export const sampleTrips: Trip[] = [
         ],
       },
     ],
-    ...tripImages[0],
+    ...tripImages.find(img => img.id === 'trip-1')!,
   },
   {
     id: 'trip-2',
@@ -84,7 +84,7 @@ export const sampleTrips: Trip[] = [
         ],
       },
     ],
-    ...tripImages[1],
+    ...tripImages.find(img => img.id === 'trip-2')!,
   },
   {
     id: 'trip-3',
@@ -96,6 +96,41 @@ export const sampleTrips: Trip[] = [
     isPublic: true,
     createdAt: new Date('2024-07-01'),
     stops: [],
-    ...tripImages[2],
+    ...tripImages.find(img => img.id === 'trip-3')!,
+  },
+  {
+    id: 'trip-4',
+    userId: 'user-1',
+    tripName: 'Trip to India',
+    startDate: new Date('2024-11-01'),
+    endDate: new Date('2024-11-15'),
+    totalBudget: 2800,
+    isPublic: false,
+    createdAt: new Date('2024-07-20'),
+    stops: [
+       {
+        id: 'stop-5',
+        tripId: 'trip-4',
+        city: 'Delhi, India',
+        startDate: new Date('2024-11-01'),
+        endDate: new Date('2024-11-05'),
+        order: 1,
+        activities: [
+          { id: 'act-9', stopId: 'stop-5', title: 'Visit Humayun\'s Tomb', estimatedCost: 10, duration: '3 hours' },
+        ],
+      },
+       {
+        id: 'stop-6',
+        tripId: 'trip-4',
+        city: 'Agra, India',
+        startDate: new Date('2024-11-06'),
+        endDate: new Date('2024-11-07'),
+        order: 2,
+        activities: [
+          { id: 'act-10', stopId: 'stop-6', title: 'See the Taj Mahal', estimatedCost: 15, duration: '4 hours' },
+        ],
+      },
+    ],
+    ...tripImages.find(img => img.id === 'trip-india')!,
   },
 ];
