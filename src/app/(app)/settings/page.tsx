@@ -59,6 +59,7 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import { Label } from '@/components/ui/label';
 
 const profileFormSchema = z.object({
   fullName: z.string().min(1, 'Full name is required.'),
@@ -257,8 +258,8 @@ export default function SettingsPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
-            <FormItem>
-              <FormLabel>Language</FormLabel>
+            <div className="space-y-2">
+              <Label>Language</Label>
               <Select defaultValue="en">
                 <SelectTrigger>
                   <SelectValue placeholder="Select language" />
@@ -271,9 +272,9 @@ export default function SettingsPage() {
                   <SelectItem value="fr">French</SelectItem>
                 </SelectContent>
               </Select>
-            </FormItem>
-            <FormItem>
-              <FormLabel>Theme</FormLabel>
+            </div>
+            <div className="space-y-2">
+              <Label>Theme</Label>
               <Select value={theme} onValueChange={setTheme}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select theme" />
@@ -296,31 +297,27 @@ export default function SettingsPage() {
                   </SelectItem>
                 </SelectContent>
               </Select>
-            </FormItem>
+            </div>
           </div>
           <div className="space-y-4">
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+            <div className="flex flex-row items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel className="text-base">Trip Reminders</FormLabel>
+                <Label className="text-base">Trip Reminders</Label>
                 <p className="text-sm text-muted-foreground">
                   Get notified about upcoming trips and activities.
                 </p>
               </div>
-              <FormControl>
-                <Switch defaultChecked />
-              </FormControl>
-            </FormItem>
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <Switch defaultChecked />
+            </div>
+            <div className="flex flex-row items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel className="text-base">Promotional Offers</FormLabel>
+                <Label className="text-base">Promotional Offers</Label>
                 <p className="text-sm text-muted-foreground">
                   Receive emails about special offers and new features.
                 </p>
               </div>
-              <FormControl>
-                <Switch />
-              </FormControl>
-            </FormItem>
+              <Switch />
+            </div>
           </div>
         </CardContent>
       </Card>
