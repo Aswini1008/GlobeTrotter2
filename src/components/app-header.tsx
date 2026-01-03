@@ -24,6 +24,7 @@ import { GlobeTrotterLogo } from './icons';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { sampleUser } from '@/lib/placeholder-data';
 import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Dashboard' },
@@ -57,7 +58,9 @@ export function AppHeader() {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${pathname.startsWith(item.href) ? 'bg-muted text-foreground' : ''}`}
+                className={cn('flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground',
+                  pathname === item.href ? 'bg-muted text-foreground' : ''
+                )}
               >
                 <item.icon className="h-5 w-5" />
                 {item.label}
@@ -84,19 +87,25 @@ export function AppHeader() {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-          </DropdownMenuItem>
+          <Link href="/settings">
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link href="/settings">
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <LogOut className="mr-2 h-4 w-4" />
-            <Link href="/login">Logout</Link>
-          </DropdownMenuItem>
+           <Link href="/login">
+            <DropdownMenuItem>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Logout</span>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
