@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import { AlertCircle, Bot, Sparkles } from 'lucide-react';
 
-import type { Trip, IntelligentSuggestion } from '@/lib/types';
+import type { Trip } from '@/lib/types';
 import {
   Card,
   CardContent,
@@ -27,6 +27,7 @@ import {
 import { Button } from '../ui/button';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Skeleton } from '../ui/skeleton';
+import type { IntelligentSuggestion } from '@/lib/types';
 
 interface BudgetViewProps {
   trip: Trip;
