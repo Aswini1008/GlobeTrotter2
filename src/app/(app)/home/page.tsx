@@ -213,7 +213,7 @@ export default function HomePage() {
                 <Card className="overflow-hidden transform hover:scale-[1.02] transition-transform duration-300 ease-in-out shadow-lg hover:shadow-2xl">
                   <div className="relative h-48 w-full">
                     <Image
-                      src={dest.imageUrl}
+                      src={dest.imageUrls[0]}
                       alt={dest.city}
                       data-ai-hint={`${dest.city} ${dest.country}`}
                       fill
