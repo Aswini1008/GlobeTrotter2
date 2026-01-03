@@ -307,37 +307,37 @@ export function CreateTripForm() {
               {formState.isSubmitting ? 'Creating...' : 'Create Trip'}
             </Button>
           </CardFooter>
-        </form>
-      </Form>
-      
-       <Card className="max-w-4xl mx-auto mt-8">
-          <CardHeader>
-            <CardTitle className="font-headline text-2xl flex items-center gap-2">
-                <Wand2 className="text-primary h-6 w-6"/>
-                Smart Suggestions
-            </CardTitle>
-            <CardDescription>
-                Get inspired with these popular spots for your destination.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {suggestionCards.map(suggestion => (
-                    <div key={suggestion.name} className="relative group aspect-w-16 aspect-h-9 rounded-md overflow-hidden cursor-pointer">
-                        <Image src={suggestion.image} alt={suggestion.name} fill className="object-cover transform transition-transform duration-300 group-hover:scale-110" />
-                        <div className="absolute inset-0 bg-black/40 flex items-end p-2">
-                            <p className="text-white text-sm font-semibold">{suggestion.name}</p>
-                        </div>
-                         <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button size="icon" variant="secondary" className="rounded-full h-9 w-9">
-                                <Plus className="h-5 w-5" />
-                            </Button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-          </CardContent>
         </Card>
-    </form>
+        
+        <Card className="max-w-4xl mx-auto mt-8">
+            <CardHeader>
+              <CardTitle className="font-headline text-2xl flex items-center gap-2">
+                  <Wand2 className="text-primary h-6 w-6"/>
+                  Smart Suggestions
+              </CardTitle>
+              <CardDescription>
+                  Get inspired with these popular spots for your destination.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {suggestionCards.map(suggestion => (
+                      <div key={suggestion.name} className="relative group aspect-w-16 aspect-h-9 rounded-md overflow-hidden cursor-pointer">
+                          <Image src={suggestion.image} alt={suggestion.name} fill className="object-cover transform transition-transform duration-300 group-hover:scale-110" />
+                          <div className="absolute inset-0 bg-black/40 flex items-end p-2">
+                              <p className="text-white text-sm font-semibold">{suggestion.name}</p>
+                          </div>
+                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                              <Button size="icon" variant="secondary" className="rounded-full h-9 w-9">
+                                  <Plus className="h-5 w-5" />
+                              </Button>
+                          </div>
+                      </div>
+                  ))}
+              </div>
+            </CardContent>
+        </Card>
+      </form>
+    </Form>
   );
 }
