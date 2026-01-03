@@ -16,6 +16,7 @@ export type Trip = {
   startDate: Date;
   endDate: Date;
   totalBudget: number;
+  dailyBudget?: number;
   isPublic: boolean;
   createdAt: Date;
   stops: Stop[];
@@ -28,7 +29,7 @@ export type Stop = {
   startDate: Date;
   endDate: Date;
   order: number;
-  activities: Activity[];
+  activities: { [date: string]: Activity[] };
 };
 
 export type Activity = {

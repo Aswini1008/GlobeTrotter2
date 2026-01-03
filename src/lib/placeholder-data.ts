@@ -47,166 +47,78 @@ const tripImages = PlaceHolderImages.filter((img) => img.id.startsWith('trip'));
 
 export const sampleTrips: Trip[] = [
   {
-    id: 'trip-1',
+    id: 'trip-10',
     userId: 'user-1',
-    tripName: 'Weekend Trip to Ooty',
-    startDate: new Date('2024-10-18'),
-    endDate: new Date('2024-10-20'),
-    totalBudget: 15000,
+    tripName: 'Incredible India Trip',
+    startDate: new Date('2026-02-10'),
+    endDate: new Date('2026-02-16'),
+    totalBudget: 45000,
+    dailyBudget: 4000,
     isPublic: true,
-    createdAt: new Date('2024-09-01'),
+    createdAt: new Date('2025-12-01'),
     stops: [
       {
-        id: 'stop-1',
-        tripId: 'trip-1',
-        city: 'Ooty, Tamil Nadu',
-        startDate: new Date('2024-10-18'),
-        endDate: new Date('2024-10-20'),
+        id: 'stop-20',
+        tripId: 'trip-10',
+        city: 'Chennai',
+        startDate: new Date('2026-02-10'),
+        endDate: new Date('2026-02-11'),
         order: 1,
-        activities: [
-          { id: 'act-1', stopId: 'stop-1', title: 'Ooty Lake & Boat Club', estimatedCost: 500, duration: '3 hours' },
-          { id: 'act-2', stopId: 'stop-1', title: 'Botanical Gardens', estimatedCost: 300, duration: '2 hours' },
-          { id: 'act-3', stopId: 'stop-1', title: 'Doddabetta Peak', estimatedCost: 100, duration: '1.5 hours' },
-        ],
-      },
-    ],
-    ...tripImages.find(img => img.id === 'trip-ooty')!
-  },
-  {
-    id: 'trip-2',
-    userId: 'user-1',
-    tripName: 'Kerala Backwaters Plan',
-    startDate: new Date('2024-11-05'),
-    endDate: new Date('2024-11-10'),
-    totalBudget: 30000,
-    isPublic: true,
-    createdAt: new Date('2024-09-15'),
-    stops: [
-      {
-        id: 'stop-4',
-        tripId: 'trip-2',
-        city: 'Alleppey, Kerala',
-        startDate: new Date('2024-11-05'),
-        endDate: new Date('2024-11-10'),
-        order: 1,
-        activities: [
-          { id: 'act-7', stopId: 'stop-4', title: 'Houseboat Day Cruise', estimatedCost: 8000, duration: 'Full day' },
-          { id: 'act-8', stopId: 'stop-4', title: 'Marari Beach Visit', estimatedCost: 200, duration: '4 hours' },
-        ],
-      },
-    ],
-    ...tripImages.find(img => img.id === 'trip-kerala')!
-  },
-  {
-    id: 'trip-3',
-    userId: 'user-2',
-    tripName: 'Temple Visit – Madurai',
-    startDate: new Date('2024-12-20'),
-    endDate: new Date('2024-12-22'),
-    totalBudget: 12000,
-    isPublic: true,
-    createdAt: new Date('2024-10-01'),
-    stops: [
-       {
-        id: 'stop-5',
-        tripId: 'trip-3',
-        city: 'Madurai, Tamil Nadu',
-        startDate: new Date('2024-12-20'),
-        endDate: new Date('2024-12-22'),
-        order: 1,
-        activities: [
-            { id: 'act-9', stopId: 'stop-5', title: 'Meenakshi Amman Temple', estimatedCost: 100, duration: '4 hours' },
-            { id: 'act-10', stopId: 'stop-5', title: 'Thirumalai Nayakar Mahal', estimatedCost: 50, duration: '2 hours' },
-        ],
-      },
-    ],
-    ...tripImages.find(img => img.id === 'trip-madurai')!
-  },
-    {
-    id: 'trip-4',
-    userId: 'user-1',
-    tripName: 'Goa Beach Holiday',
-    startDate: new Date('2025-02-10'),
-    endDate: new Date('2025-02-15'),
-    totalBudget: 40000,
-    isPublic: false,
-    createdAt: new Date('2024-11-01'),
-    stops: [
-      {
-        id: 'stop-6',
-        tripId: 'trip-4',
-        city: 'North Goa, Goa',
-        startDate: new Date('2025-02-10'),
-        endDate: new Date('2025-02-12'),
-        order: 1,
-        activities: [
-          { id: 'act-11', stopId: 'stop-6', title: 'Baga Beach Watersports', estimatedCost: 3000, duration: '5 hours' },
-        ],
+        activities: {
+          '2026-02-10': [
+            { id: 'act-101', stopId: 'stop-20', title: 'Marina Beach Walk', estimatedCost: 0, duration: '2 hours' },
+            { id: 'act-102', stopId: 'stop-20', title: 'Local South Indian Breakfast', estimatedCost: 250, duration: '1 hour' },
+            { id: 'act-103', stopId: 'stop-20', title: 'Kapaleeshwarar Temple Visit', estimatedCost: 0, duration: '1.5 hours' },
+          ],
+          '2026-02-11': [
+            { id: 'act-104', stopId: 'stop-20', title: 'Mahabalipuram Day Trip', estimatedCost: 1200, duration: 'Full day' },
+            { id: 'act-105', stopId: 'stop-20', title: 'Street Food Dinner', estimatedCost: 400, duration: '2 hours' },
+          ],
+        },
       },
       {
-        id: 'stop-7',
-        tripId: 'trip-4',
-        city: 'South Goa, Goa',
-        startDate: new Date('2025-02-13'),
-        endDate: new Date('2025-02-15'),
+        id: 'stop-21',
+        tripId: 'trip-10',
+        city: 'Bengaluru',
+        startDate: new Date('2026-02-12'),
+        endDate: new Date('2026-02-14'),
         order: 2,
-        activities: [
-          { id: 'act-12', stopId: 'stop-7', title: 'Palolem Beach Relaxation', estimatedCost: 500, duration: 'Full day' },
-        ],
+        activities: {
+            '2026-02-12': [
+                { id: 'act-201', stopId: 'stop-21', title: 'Travel Day (Chennai → Bengaluru)', estimatedCost: 1800, duration: '6 hours' },
+            ],
+            '2026-02-13': [
+                { id: 'act-202', stopId: 'stop-21', title: 'Lalbagh Botanical Garden', estimatedCost: 300, duration: '3 hours' },
+                { id: 'act-203', stopId: 'stop-21', title: 'Cafe Hopping in Koramangala', estimatedCost: 1200, duration: '4 hours' },
+            ],
+            '2026-02-14': [
+                { id: 'act-204', stopId: 'stop-21', title: 'Coorg Day Trip', estimatedCost: 6500, duration: 'Full day' },
+                { id: 'act-205', stopId: 'stop-21', title: 'Local Dinner at VV Puram', estimatedCost: 700, duration: '2 hours' },
+            ],
+        },
       },
-    ],
-    ...tripImages.find(img => img.id === 'trip-goa')!,
-  },
-  {
-    id: 'trip-5',
-    userId: 'user-4',
-    tripName: 'Spiritual Rishikesh',
-    startDate: new Date('2025-03-01'),
-    endDate: new Date('2025-03-05'),
-    totalBudget: 22000,
-    isPublic: true,
-    createdAt: new Date('2025-02-01'),
-    stops: [
-      {
-        id: 'stop-8',
-        tripId: 'trip-5',
-        city: 'Rishikesh, Uttarakhand',
-        startDate: new Date('2025-03-01'),
-        endDate: new Date('2025-03-05'),
-        order: 1,
-        activities: [
-            { id: 'act-13', stopId: 'stop-8', title: 'River Rafting', estimatedCost: 2500, duration: 'Half day' },
-            { id: 'act-14', stopId: 'stop-8', title: 'Visit Beatles Ashram', estimatedCost: 600, duration: '3 hours' },
-        ],
-      },
-    ],
-    ...tripImages.find(img => img.id === 'trip-rishikesh')!,
-  },
-  {
-    id: 'trip-7',
-    userId: 'user-1',
-    tripName: 'Mumbai Getaway',
-    startDate: new Date('2025-01-13'),
-    endDate: new Date('2025-01-15'),
-    totalBudget: 20000,
-    isPublic: false,
-    createdAt: new Date('2024-12-01'),
-    stops: [
        {
-        id: 'stop-10',
-        tripId: 'trip-7',
-        city: 'Mumbai, Maharashtra',
-        startDate: new Date('2025-01-13'),
-        endDate: new Date('2025-01-15'),
-        order: 1,
-        activities: [
-          { id: 'act-15', stopId: 'stop-10', title: 'Gateway of India Visit', estimatedCost: 0, duration: '1 hour' },
-          { id: 'act-16', stopId: 'stop-10', title: 'Street Food Tour at Juhu', estimatedCost: 1000, duration: '3 hours' },
-        ],
+        id: 'stop-22',
+        tripId: 'trip-10',
+        city: 'Hyderabad',
+        startDate: new Date('2026-02-15'),
+        endDate: new Date('2026-02-16'),
+        order: 3,
+        activities: {
+            '2026-02-15': [
+                { id: 'act-301', stopId: 'stop-22', title: 'Travel Day (Bengaluru → Hyderabad)', estimatedCost: 1200, duration: '8 hours' },
+            ],
+            '2026-02-16': [
+                { id: 'act-302', stopId: 'stop-22', title: 'Charminar & Old City Tour', estimatedCost: 800, duration: 'Half day' },
+                { id: 'act-303', stopId: 'stop-22', title: 'Biryani Dinner at Paradise', estimatedCost: 600, duration: '2 hours' },
+            ],
+        },
       },
     ],
-    ...tripImages.find(img => img.id === 'trip-mumbai')!,
-  }
+    imageUrl: 'https://images.unsplash.com/photo-1532375836203-32433b499187?q=80&w=1920',
+    description: 'A collage of iconic Indian landmarks and scenery',
+    imageHint: 'incredible india collage'
+  },
 ];
 
 
