@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
@@ -107,6 +108,30 @@ const TextContent = ({ post }: { post: CommunityPost }) => {
 export function CommunityTripCard({ post }: CommunityTripCardProps) {
   const { toast } = useToast();
   const { creator } = post;
+  
+  const [isLiked, setIsLiked] = React.useState(false);
+  const [likeCount, setLikeCount] = React.useState(post.likes);
+  const [isSaved, setIsSaved] = React.useState(false);
+
+  const handleLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsLiked(prev => !prev);
+    setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+  };
+  
+  const handleSave = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const wasSaved = isSaved;
+    setIsSaved(prev => !prev);
+    if (!wasSaved) {
+       toast({
+        title: 'Saved!',
+        description: `Post saved to your inspiration list.`,
+      });
+    }
+  };
 
   const handleCopyTrip = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -144,15 +169,17 @@ export function CommunityTripCard({ post }: CommunityTripCardProps) {
       </CardContent>
       <CardFooter className="p-4 flex flex-col items-start gap-4">
         <div className="flex items-center justify-between w-full">
-          <div className="flex items-center gap-1">
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <Heart className="h-4 w-4" />
+          <div className="flex items-center gap-1 text-muted-foreground">
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleLike}>
+              <Heart className={cn("h-4 w-4", isLiked && "fill-red-500 text-red-500")} />
             </Button>
+            <span className="text-sm">{likeCount}</span>
             <Button variant="ghost" size="icon" className="h-8 w-8">
               <MessageCircle className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <Bookmark className="h-4 w-4" />
+            <span className="text-sm">{post.comments}</span>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleSave}>
+              <Bookmark className={cn("h-4 w-4", isSaved && "fill-yellow-400 text-yellow-500")} />
             </Button>
           </div>
           {post.type === 'ITINERARY' && (

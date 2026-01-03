@@ -221,7 +221,9 @@ export const sampleCommunityPosts: CommunityPost[] = [
         userId: 'user-1',
         createdAt: new Date('2024-08-12'),
         type: 'ITINERARY',
-        trip: sampleTrips.find(t => t.id === 'trip-1')!
+        trip: sampleTrips.find(t => t.id === 'trip-1')!,
+        likes: 132,
+        comments: 18,
     },
     {
         id: 'post-2',
@@ -231,6 +233,8 @@ export const sampleCommunityPosts: CommunityPost[] = [
         city: 'Varanasi',
         country: 'India',
         text: 'I visited Varanasi during monsoon. The chaos, the rain, the peace — it changed me. Watching the Ganga Aarti ceremony from a boat on the river was an unforgettable spiritual experience.',
+        likes: 247,
+        comments: 42,
     },
     {
         id: 'post-3',
@@ -239,14 +243,18 @@ export const sampleCommunityPosts: CommunityPost[] = [
         type: 'TIP',
         city: 'Bali',
         country: 'Indonesia',
-        text: '💡 Tip for Bali: Rent a scooter only if you’re confident—traffic is intense near Ubud. For a more relaxed experience, hire a driver for the day. It\'s surprisingly affordable!'
+        text: '💡 Tip for Bali: Rent a scooter only if you’re confident—traffic is intense near Ubud. For a more relaxed experience, hire a driver for the day. It\'s surprisingly affordable!',
+        likes: 98,
+        comments: 12,
     },
     {
         id: 'post-4',
         userId: 'user-2',
         createdAt: new Date('2024-08-09'),
         type: 'ITINERARY',
-        trip: sampleTrips.find(t => t.id === 'trip-3')!
+        trip: sampleTrips.find(t => t.id === 'trip-3')!,
+        likes: 76,
+        comments: 9,
     },
     {
         id: 'post-5',
@@ -257,13 +265,17 @@ export const sampleCommunityPosts: CommunityPost[] = [
         country: 'Spain',
         text: 'Barcelona is magical at night, but avoid La Rambla after 11 PM if you’re solo. The Gothic Quarter\'s narrow streets offer a much more authentic and safer vibe for an evening walk.',
         imageUrl: 'https://picsum.photos/seed/barcelona-night/800/600',
-        imageHint: 'barcelona night street'
+        imageHint: 'barcelona night street',
+        likes: 188,
+        comments: 25,
     },
     {
         id: 'post-6',
         userId: 'user-2',
         createdAt: new Date('2024-08-07'),
         type: 'ITINERARY',
-        trip: sampleTrips.find(t => t.id === 'trip-5')!
+        trip: sampleTrips.find(t => t.id === 'trip-5')!,
+        likes: 54,
+        comments: 7,
     }
 ]

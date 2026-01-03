@@ -57,6 +57,8 @@ export interface CommunityPostBase {
   country?: string;
   imageUrl?: string;
   imageHint?: string;
+  likes: number;
+  comments: number;
 }
 
 export interface CommunityItineraryPost extends CommunityPostBase {
