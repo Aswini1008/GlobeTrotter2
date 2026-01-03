@@ -9,6 +9,7 @@ import {
   Settings,
   Plane,
   Compass,
+  CalendarDays,
 } from 'lucide-react';
 import { GlobeTrotterLogo } from './icons';
 import { cn } from '@/lib/utils';
@@ -25,6 +26,7 @@ const navItems = [
   { href: '/home', icon: Home, label: 'Home' },
   { href: '/trips', icon: Plane, label: 'My Trips' },
   { href: '/explore', icon: Compass, label: 'Explore' },
+  { href: '/calendar', icon: CalendarDays, label: 'Calendar' },
   { href: '/settings', icon: Settings, label: 'Settings' },
 ];
 
