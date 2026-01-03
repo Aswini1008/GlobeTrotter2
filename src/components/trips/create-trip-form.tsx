@@ -73,6 +73,17 @@ const formSchema = z
     path: ['dateRange'],
   });
 
+  const suggestionImages = [
+    'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?q=80&w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1502602898657-3e91760c0341?q=80&w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1555992336-fb0d29498b13?q=80&w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1488646953041-8f219b23b313?q=80&w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=400&h=300&fit=crop',
+  ];
+
 export function CreateTripForm() {
   const router = useRouter();
   const { toast } = useToast();
@@ -404,7 +415,7 @@ export function CreateTripForm() {
                       className="relative group aspect-w-16 aspect-h-9 rounded-md overflow-hidden cursor-pointer"
                     >
                       <Image
-                        src={`https://picsum.photos/seed/${suggestion.imageHint.replace(/\s/g, '-')}/400/300`}
+                        src={suggestionImages[i % suggestionImages.length]}
                         alt={suggestion.name}
                         data-ai-hint={suggestion.imageHint}
                         fill
