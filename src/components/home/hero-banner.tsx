@@ -56,20 +56,22 @@ export function HeroBanner() {
   return (
     <div className="relative h-[80vh] md:h-[90vh] max-h-[800px] w-full overflow-hidden rounded-2xl shadow-2xl">
       <div className="flex flex-col lg:flex-row w-full h-full">
-        <ImagePanel
-          src={heroSections[0].src}
-          alt={heroSections[0].alt}
-          hint={heroSections[0].hint}
-          text={heroSections[0].text}
-          className="lg:w-1/2"
-        />
-        <ImagePanel
-          src={heroSections[1].src}
-          alt={heroSections[1].alt}
-          hint={heroSections[1].hint}
-          text={heroSections[1].text}
-          className="lg:w-1/2"
-        />
+        <div className="h-1/2 w-full lg:h-full lg:w-1/2">
+            <ImagePanel
+              src={heroSections[0].src}
+              alt={heroSections[0].alt}
+              hint={heroSections[0].hint}
+              text={heroSections[0].text}
+            />
+        </div>
+        <div className="h-1/2 w-full lg:h-full lg:w-1/2">
+            <ImagePanel
+              src={heroSections[1].src}
+              alt={heroSections[1].alt}
+              hint={heroSections[1].hint}
+              text={heroSections[1].text}
+            />
+        </div>
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent" />
