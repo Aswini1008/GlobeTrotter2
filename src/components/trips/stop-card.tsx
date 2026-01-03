@@ -29,8 +29,8 @@ export function StopCard({ stop }: StopCardProps) {
     <Card className="shadow-md border">
       <CardHeader className="flex flex-row items-start justify-between">
         <div className="grid gap-2">
-          <CardTitle className="font-headline text-2xl">Section {stop.order}</CardTitle>
-          <CardDescription>All the necessary information about this section. This can be anything like travel section, hotel or any other activity.</CardDescription>
+          <CardTitle className="font-headline text-2xl">{stop.city}</CardTitle>
+          <CardDescription>All activities and plans for this destination.</CardDescription>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
