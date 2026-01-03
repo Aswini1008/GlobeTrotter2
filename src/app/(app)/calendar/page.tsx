@@ -33,6 +33,7 @@ import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -146,7 +147,7 @@ export default function CalendarPage() {
              const statusStyles = {
                  'Under': 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300',
                  'Near': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300',
-                 'Over': 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300',
+                 'Over': 'bg-red-100 text-red-800 dark:bg-red-900/50 dark-text-red-300',
              }
              
              return (
