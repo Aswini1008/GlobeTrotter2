@@ -4,9 +4,7 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -42,6 +40,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import type { Trip } from '@/lib/types';
 
 const quickActions = [
@@ -108,29 +112,58 @@ const initialPopularDestinations = [
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [filteredTrips, setFilteredTrips] = React.useState<Trip[]>(sampleTrips.slice(0, 3));
+  const [sortOption, setSortOption] = React.useState('date-desc');
+  const [groupOption, setGroupOption] = React.useState('none');
+
+  const [filteredTrips, setFilteredTrips] = React.useState<Trip[]>(sampleTrips);
+  const [groupedTrips, setGroupedTrips] = React.useState<Record<string, Trip[]>>({});
   const [filteredDestinations, setFilteredDestinations] = React.useState(initialPopularDestinations);
   
   React.useEffect(() => {
     const lowercasedQuery = searchQuery.toLowerCase();
 
-    // Filter recent trips
-    const filteredRecentTrips = sampleTrips
-      .filter((trip) =>
+    // Filter logic
+    let trips = sampleTrips.filter((trip) =>
         trip.tripName.toLowerCase().includes(lowercasedQuery) ||
         trip.stops.some(stop => stop.city.toLowerCase().includes(lowercasedQuery))
-      )
-      .slice(0, 3);
-    setFilteredTrips(filteredRecentTrips);
-
-    // Filter popular destinations
-    const filteredPopularDestinations = initialPopularDestinations.filter(
-      (destination) =>
-        destination.city.toLowerCase().includes(lowercasedQuery)
     );
-    setFilteredDestinations(filteredPopularDestinations);
+    
+    const popularDests = initialPopularDestinations.filter(
+      (destination) => destination.city.toLowerCase().includes(lowercasedQuery)
+    );
+    setFilteredDestinations(popularDests);
 
-  }, [searchQuery]);
+    // Sorting logic
+    trips.sort((a, b) => {
+      switch (sortOption) {
+        case 'date-asc':
+          return a.startDate.getTime() - b.startDate.getTime();
+        case 'name-asc':
+          return a.tripName.localeCompare(b.tripName);
+        case 'name-desc':
+          return b.tripName.localeCompare(a.tripName);
+        case 'date-desc':
+        default:
+          return b.startDate.getTime() - a.startDate.getTime();
+      }
+    });
+
+    // Grouping logic
+    if (groupOption === 'destination') {
+      const groups: Record<string, Trip[]> = {};
+      trips.forEach(trip => {
+        const key = trip.stops.length > 0 ? trip.stops[0].city : 'Uncategorized';
+        if (!groups[key]) {
+          groups[key] = [];
+        }
+        groups[key].push(trip);
+      });
+      setGroupedTrips(groups);
+    }
+
+    setFilteredTrips(trips);
+
+  }, [searchQuery, sortOption, groupOption]);
 
 
   return (
@@ -151,20 +184,19 @@ export default function HomePage() {
           <div className="flex items-center gap-4 w-full md:w-auto">
             <div className="flex items-center gap-2 w-full">
               <ListFilter className="h-5 w-5 text-muted-foreground" />
-              <Select>
+              <Select value={groupOption} onValueChange={setGroupOption}>
                 <SelectTrigger className="w-full md:w-[180px] h-11">
                   <SelectValue placeholder="Group by" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="none">None</SelectItem>
                   <SelectItem value="destination">Destination</SelectItem>
-                  <SelectItem value="month">Month</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="flex items-center gap-2 w-full">
               <ArrowUpDown className="h-5 w-5 text-muted-foreground" />
-              <Select>
+              <Select value={sortOption} onValueChange={setSortOption}>
                 <SelectTrigger className="w-full md:w-[180px] h-11">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
@@ -243,7 +275,7 @@ export default function HomePage() {
         </Carousel>
         ) : (
           <div className="text-center py-10">
-            <p className="text-muted-foreground">No popular destinations found.</p>
+            <p className="text-muted-foreground">No popular destinations found matching your search.</p>
           </div>
         )}
       </section>
@@ -258,17 +290,36 @@ export default function HomePage() {
           </Button>
         </div>
         {filteredTrips.length > 0 ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {filteredTrips.map((trip) => (
-              <TripCard key={trip.id} trip={trip} />
-            ))}
-          </div>
+          groupOption === 'destination' ? (
+             <Accordion type="multiple" className="w-full space-y-4">
+              {Object.entries(groupedTrips).map(([city, trips]) => (
+                <AccordionItem value={city} key={city} className="border-none">
+                  <AccordionTrigger className="text-xl font-semibold font-headline bg-muted/50 px-4 py-3 rounded-lg hover:no-underline">
+                    {city}
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-4">
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {trips.map((trip) => (
+                        <TripCard key={trip.id} trip={trip} />
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {filteredTrips.map((trip) => (
+                <TripCard key={trip.id} trip={trip} />
+              ))}
+            </div>
+          )
         ) : (
           <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-12 text-center">
             <Map className="h-12 w-12 text-muted-foreground" />
             <h3 className="mt-4 text-xl font-semibold">No Recent Trips</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Your past adventures will appear here. No trips found matching your search.
+              Your adventures will appear here. No trips found matching your search.
             </p>
           </div>
         )}
