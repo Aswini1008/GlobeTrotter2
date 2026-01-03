@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import * as React from 'react';
+import { User } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -17,6 +19,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 const formSchema = z.object({
   firstName: z.string().min(1, { message: 'First name is required.' }),
@@ -25,6 +28,7 @@ const formSchema = z.object({
   password: z
     .string()
     .min(8, { message: 'Password must be at least 8 characters.' }),
+  photoURL: z.string().optional(),
   city: z.string().optional(),
   country: z.string().optional(),
 });
@@ -32,6 +36,8 @@ const formSchema = z.object({
 export function RegisterForm() {
   const router = useRouter();
   const { toast } = useToast();
+  const [imagePreview, setImagePreview] = React.useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,12 +46,26 @@ export function RegisterForm() {
       lastName: '',
       email: '',
       password: '',
+      photoURL: '',
       city: '',
       country: '',
     },
   });
 
   const { formState } = form;
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl = reader.result as string;
+        setImagePreview(dataUrl);
+        form.setValue('photoURL', dataUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -61,6 +81,24 @@ export function RegisterForm() {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
+          <div className="flex flex-col items-center gap-4">
+            <Avatar className="h-24 w-24 cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+              <AvatarImage src={imagePreview ?? undefined} alt="User profile picture" />
+              <AvatarFallback>
+                <User className="h-12 w-12" />
+              </AvatarFallback>
+            </Avatar>
+             <Input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+              />
+            <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}>
+              Upload Photo
+            </Button>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
