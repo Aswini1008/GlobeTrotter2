@@ -179,7 +179,7 @@ export default function CalendarPage() {
             components={{
               DayContent: ({ date }) => dayContent(date),
             }}
-            className="p-0 [&_td]:h-28 [&_td]:align-top [&_td]:border [&_tr]:border-b-0"
+            className="p-0 [&_td]:h-32 [&_td]:w-auto [&_td]:flex-1 [&_td]:align-top [&_td]:border [&_tr]:border-b-0"
           />
         </CardContent>
       </Card>
