@@ -12,6 +12,7 @@ import {
   CalendarDays,
   Users,
   Search,
+  Shield,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -37,7 +38,11 @@ const navItems = [
   { href: '/explore', icon: Compass, label: 'Explore' },
   { href: '/calendar', icon: CalendarDays, label: 'Calendar' },
   { href: '/activities/search', icon: Search, label: 'Activities' },
-  { href: '/settings', icon: Settings, label: 'Settings' },
+];
+
+const adminNavItems = [
+    { href: '/admin', icon: Shield, label: 'Admin' },
+    { href: '/settings', icon: Settings, label: 'Settings' },
 ];
 
 export function AppHeader() {
@@ -62,7 +67,7 @@ export function AppHeader() {
             >
               <GlobeTrotterLogo />
             </Link>
-            {navItems.map((item) => (
+            {[...navItems, ...adminNavItems].map((item) => (
               <Link
                 key={item.label}
                 href={item.href}

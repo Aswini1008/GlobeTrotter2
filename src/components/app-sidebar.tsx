@@ -12,6 +12,7 @@ import {
   CalendarDays,
   Users,
   Search,
+  Shield,
 } from 'lucide-react';
 import { GlobeTrotterLogo } from './icons';
 import { cn } from '@/lib/utils';
@@ -23,6 +24,7 @@ import {
   CardTitle,
 } from './ui/card';
 import { Button } from './ui/button';
+import { Separator } from './ui/separator';
 
 const navItems = [
   { href: '/home', icon: Home, label: 'Home' },
@@ -31,8 +33,15 @@ const navItems = [
   { href: '/explore', icon: Compass, label: 'Explore' },
   { href: '/calendar', icon: CalendarDays, label: 'Calendar' },
   { href: '/activities/search', icon: Search, label: 'Activities' },
-  { href: '/settings', icon: Settings, label: 'Settings' },
 ];
+
+const adminNavItems = [
+    { href: '/admin', icon: Shield, label: 'Admin' },
+];
+
+const bottomNavItems = [
+    { href: '/settings', icon: Settings, label: 'Settings' },
+]
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -45,7 +54,7 @@ export function AppSidebar() {
             <GlobeTrotterLogo />
           </Link>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto">
           <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
             {navItems.map((item) => (
               <Link
@@ -62,6 +71,39 @@ export function AppSidebar() {
               </Link>
             ))}
           </nav>
+          <Separator className="my-4" />
+           <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+             {adminNavItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
+                  pathname.startsWith(item.href) ? 'bg-muted text-primary' : ''
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.label}
+              </Link>
+            ))}
+           </nav>
+        </div>
+        <div className="mt-auto p-4 border-t">
+            <nav className="grid items-start text-sm font-medium">
+                {bottomNavItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={cn(
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
+                      pathname.startsWith(item.href) ? 'bg-muted text-primary' : ''
+                    )}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.label}
+                  </Link>
+                ))}
+            </nav>
         </div>
       </div>
     </div>
