@@ -43,7 +43,159 @@ export const sampleTrips: Trip[] = [
         endDate: new Date('2024-08-25'),
         order: 2,
         activities: [
-          { id: 'act-4', stopId: 'stop-2', title:.
-..
+          { id: 'act-4', stopId: 'stop-2', title: 'Colosseum & Roman Forum', estimatedCost: 30, duration: '4 hours' },
+          { id: 'act-5', stopId: 'stop-2', title: 'Vatican City Tour', estimatedCost: 45, duration: '5 hours' },
+        ],
+      },
+      {
+        id: 'stop-3',
+        tripId: 'trip-1',
+        city: 'Barcelona, Spain',
+        startDate: new Date('2024-08-26'),
+        endDate: new Date('2024-08-29'),
+        order: 3,
+        activities: [
+          { id: 'act-6', stopId: 'stop-3', title: 'Sagrada Familia Visit', estimatedCost: 35, duration: '2 hours' },
+        ],
+      },
+    ],
+    ...tripImages.find(img => img.id === 'trip-1')!
   },
+  {
+    id: 'trip-2',
+    userId: 'user-1',
+    tripName: 'Tropical Getaway',
+    startDate: new Date('2024-07-10'),
+    endDate: new Date('2024-07-20'),
+    totalBudget: 2500,
+    isPublic: false,
+    createdAt: new Date('2024-06-01'),
+    stops: [
+      {
+        id: 'stop-4',
+        tripId: 'trip-2',
+        city: 'Maui, Hawaii',
+        startDate: new Date('2024-07-10'),
+        endDate: new Date('2024-07-20'),
+        order: 1,
+        activities: [
+          { id: 'act-7', stopId: 'stop-4', title: 'Road to Hana', estimatedCost: 50, duration: 'Full day' },
+          { id: 'act-8', stopId: 'stop-4', title: 'Snorkeling at Molokini', estimatedCost: 120, duration: '4 hours' },
+        ],
+      },
+    ],
+    ...tripImages.find(img => img.id === 'trip-2')!
+  },
+  {
+    id: 'trip-3',
+    userId: 'user-1',
+    tripName: 'Mountain Expedition',
+    startDate: new Date('2024-09-05'),
+    endDate: new Date('2024-09-12'),
+    totalBudget: 1800,
+    isPublic: true,
+    createdAt: new Date('2024-07-15'),
+    stops: [
+       {
+        id: 'stop-5',
+        tripId: 'trip-3',
+        city: 'Banff, Canada',
+        startDate: new Date('2024-09-05'),
+        endDate: new Date('2024-09-12'),
+        order: 1,
+        activities: [
+            { id: 'act-9', stopId: 'stop-5', title: 'Hike to Lake Agnes Tea House', estimatedCost: 10, duration: '5 hours' },
+            { id: 'act-10', stopId: 'stop-5', title: 'Canoeing on Lake Louise', estimatedCost: 90, duration: '2 hours' },
+        ],
+      },
+    ],
+    ...tripImages.find(img => img.id === 'trip-3')!
+  },
+    {
+    id: 'trip-4',
+    userId: 'user-1',
+    tripName: 'Trip to India',
+    startDate: new Date('2024-11-01'),
+    endDate: new Date('2024-11-15'),
+    totalBudget: 2800,
+    isPublic: false,
+    createdAt: new Date('2024-08-01'),
+    stops: [
+      {
+        id: 'stop-6',
+        tripId: 'trip-4',
+        city: 'Delhi, India',
+        startDate: new Date('2024-11-01'),
+        endDate: new Date('2024-11-05'),
+        order: 1,
+        activities: [
+          { id: 'act-11', stopId: 'stop-6', title: 'Explore Old Delhi', estimatedCost: 20, duration: '6 hours' },
+        ],
+      },
+      {
+        id: 'stop-7',
+        tripId: 'trip-4',
+        city: 'Agra, India',
+        startDate: new Date('2024-11-06'),
+        endDate: new Date('2024-11-08'),
+        order: 2,
+        activities: [
+          { id: 'act-12', stopId: 'stop-7', title: 'Visit Taj Mahal', estimatedCost: 50, duration: '4 hours' },
+        ],
+      },
+    ],
+    ...tripImages.find(img => img.id === 'trip-india')!,
+  },
+  {
+    id: 'trip-5',
+    userId: 'user-1',
+    tripName: 'Weekend in New York',
+    startDate: new Date('2024-10-18'),
+    endDate: new Date('2024-10-20'),
+    totalBudget: 900,
+    isPublic: true,
+    createdAt: new Date('2024-08-10'),
+    stops: [
+       {
+        id: 'stop-8',
+        tripId: 'trip-5',
+        city: 'New York, USA',
+        startDate: new Date('2024-10-18'),
+        endDate: new Date('2024-10-20'),
+        order: 1,
+        activities: [
+          { id: 'act-13', stopId: 'stop-8', title: 'Broadway Show', estimatedCost: 150, duration: '3 hours' },
+        ],
+      },
+    ],
+    imageUrl: "https://picsum.photos/seed/nyc-trip/800/600",
+    imageHint: "new york city trip",
+    description: "A photo of New York City"
+  },
+  {
+    id: 'trip-6',
+    userId: 'user-1',
+    tripName: 'Australian Outback',
+    startDate: new Date('2025-02-20'),
+    endDate: new Date('2025-03-05'),
+    totalBudget: 4000,
+    isPublic: false,
+    createdAt: new Date('2024-08-15'),
+    stops: [
+       {
+        id: 'stop-9',
+        tripId: 'trip-6',
+        city: 'Alice Springs, Australia',
+        startDate: new Date('2025-02-20'),
+        endDate: new Date('2025-03-05'),
+        order: 1,
+        activities: [
+          { id: 'act-14', stopId: 'stop-9', title: 'Uluru Base Walk', estimatedCost: 0, duration: '4 hours' },
+        ],
+      },
+    ],
+    imageUrl: "https://picsum.photos/seed/outback/800/600",
+    imageHint: "australian outback",
+    description: "A photo of the Australian Outback"
+  }
 ];
