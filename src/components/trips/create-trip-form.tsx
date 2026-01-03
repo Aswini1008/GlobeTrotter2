@@ -404,7 +404,7 @@ export function CreateTripForm() {
                       className="relative group aspect-w-16 aspect-h-9 rounded-md overflow-hidden cursor-pointer"
                     >
                       <Image
-                        src={`https://images.unsplash.com/photo-1593642532400-2682810df593?q=80&w=400&h=300&fit=crop&q=80&ixid=${suggestion.imageHint}`}
+                        src={`https://picsum.photos/seed/${suggestion.imageHint.replace(/\s/g, '-')}/400/300`}
                         alt={suggestion.name}
                         data-ai-hint={suggestion.imageHint}
                         fill
