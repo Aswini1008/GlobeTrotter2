@@ -57,7 +57,7 @@ export default function ActivitySearchPage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState(true);
   const [activities, setActivities] =
-    React.useState<SearchableActivity[]>(sampleActivities);
+    React.useState<SearchableActivity[]>([]);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [sortOption, setSortOption] = React.useState('rating');
   const [filters, setFilters] = React.useState<{
@@ -102,7 +102,6 @@ export default function ActivitySearchPage() {
   };
 
   const filteredActivities = React.useMemo(() => {
-    setIsLoading(true);
     const lowercasedQuery = searchQuery.toLowerCase();
 
     let filtered = activities.filter((activity) => {
@@ -123,7 +122,7 @@ export default function ActivitySearchPage() {
       return matchesQuery && matchesCategory && matchesCost && matchesDuration;
     });
 
-    filtered.sort((a, b) => {
+    return filtered.sort((a, b) => {
       switch (sortOption) {
         case 'rating':
           return b.rating - a.rating;
@@ -139,11 +138,6 @@ export default function ActivitySearchPage() {
           return 0;
       }
     });
-    
-    // Simulate loading for filter changes
-    setTimeout(() => setIsLoading(false), 300);
-
-    return filtered;
   }, [searchQuery, activities, sortOption, filters]);
 
   const activeFilterCount = Object.values(filters).reduce(
