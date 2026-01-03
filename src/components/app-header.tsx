@@ -11,6 +11,7 @@ import {
   Compass,
   CalendarDays,
   Users,
+  Search,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -35,6 +36,7 @@ const navItems = [
   { href: '/community', icon: Users, label: 'Community' },
   { href: '/explore', icon: Compass, label: 'Explore' },
   { href: '/calendar', icon: CalendarDays, label: 'Calendar' },
+  { href: '/activities/search', icon: Search, label: 'Activities' },
   { href: '/settings', icon: Settings, label: 'Settings' },
 ];
 

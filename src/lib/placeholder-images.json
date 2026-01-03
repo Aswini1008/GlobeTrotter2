@@ -29,6 +29,42 @@
       "description": "A person looking at a world map.",
       "imageUrl": "https://images.unsplash.com/photo-1497302347632-904729bc24aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmF2ZWwlMjBwbGFubmluZ3xlbnwwfHx8fDE3Njc0MTEzMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "travel planning"
+    },
+    {
+      "id": "activity-louvre",
+      "description": "The Louvre Museum pyramid in Paris.",
+      "imageUrl": "https://images.unsplash.com/photo-1567942585146-33d62b775db0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsb3V2cmUlMjBtdXNldW18ZW58MHx8fHwxNzY3MzYyMjU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "louvre museum"
+    },
+    {
+      "id": "activity-seine",
+      "description": "A boat on the Seine River at sunset.",
+      "imageUrl": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzZWluZSUyMHJpdmVyfGVufDB8fHx8MTc2NzQyNTA5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "seine river"
+    },
+    {
+      "id": "activity-food-tour",
+      "description": "A variety of French pastries.",
+      "imageUrl": "https://images.unsplash.com/photo-1546237769-6f84ec1a512a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZnJlbmNoJTIwZm9vZHxlbnwwfHx8fDE3NjczMzc2MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "french food"
+    },
+    {
+      "id": "activity-montmartre",
+      "description": "A charming street in Montmartre, Paris.",
+      "imageUrl": "https://images.unsplash.com/photo-1618569388132-92ca192f40ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb250bWFydHJlJTIwcGFyaXN8ZW58MHx8fHwxNzY3NDI1MDkxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "montmartre paris"
+    },
+    {
+      "id": "activity-versailles",
+      "description": "The Palace of Versailles gardens.",
+      "imageUrl": "https://images.unsplash.com/photo-1667752920461-a5ea0883f438?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx2ZXJzYWlsbGVzJTIwcGFsYWNlfGVufDB8fHx8MTc2NzQyNTA5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "versailles palace"
+    },
+    {
+      "id": "activity-cooking",
+      "description": "Hands kneading dough in a cooking class.",
+      "imageUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb29raW5nJTIwY2xhc3N8ZW58MHx8fHwxNzY3MzIxOTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cooking class"
     }
   ]
 }
