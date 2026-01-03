@@ -76,15 +76,7 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <div className="flex items-center">
-                  <FormLabel>Password</FormLabel>
-                  <Link
-                    href="/forgot-password"
-                    className="ml-auto inline-block text-sm underline"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input type="password" placeholder="••••••••" {...field} />
                 </FormControl>
@@ -101,6 +93,14 @@ export function LoginForm() {
           </Button>
         </form>
       </Form>
+      <div className="text-center text-sm">
+        <Link
+          href="/forgot-password"
+          className="underline"
+        >
+          Forgot your password?
+        </Link>
+      </div>
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
