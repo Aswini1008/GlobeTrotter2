@@ -15,6 +15,9 @@ import {
   PiggyBank,
   Heart,
   Compass,
+  Search,
+  ArrowUpDown,
+  ListFilter,
 } from 'lucide-react';
 import Link from 'next/link';
 import { HeroBanner } from '@/components/home/hero-banner';
@@ -28,6 +31,14 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const quickActions = [
   {
@@ -92,6 +103,47 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-8 md:gap-12">
       <HeroBanner />
+
+      <section className="px-0 md:px-0">
+        <div className="flex flex-col md:flex-row gap-4 justify-between items-center p-4 bg-card border rounded-xl shadow-sm -mt-4 md:-mt-8">
+          <div className="relative w-full md:w-1/2 lg:w-2/5">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Input
+              placeholder="Search destinations, trips..."
+              className="pl-10 h-11"
+            />
+          </div>
+          <div className="flex items-center gap-4 w-full md:w-auto">
+            <div className="flex items-center gap-2 w-full">
+              <ListFilter className="h-5 w-5 text-muted-foreground" />
+              <Select>
+                <SelectTrigger className="w-full md:w-[180px] h-11">
+                  <SelectValue placeholder="Group by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">None</SelectItem>
+                  <SelectItem value="destination">Destination</SelectItem>
+                  <SelectItem value="month">Month</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center gap-2 w-full">
+              <ArrowUpDown className="h-5 w-5 text-muted-foreground" />
+              <Select>
+                <SelectTrigger className="w-full md:w-[180px] h-11">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="date-desc">Date (Newest)</SelectItem>
+                  <SelectItem value="date-asc">Date (Oldest)</SelectItem>
+                  <SelectItem value="name-asc">Name (A-Z)</SelectItem>
+                  <SelectItem value="name-desc">Name (Z-A)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {quickActions.map((action) => (
